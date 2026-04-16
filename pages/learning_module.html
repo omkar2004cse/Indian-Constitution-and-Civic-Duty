@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Module - ConstitutionLearn</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fconstituti1589back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 via-white to-accent-50 min-h-screen">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="constitution-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="1" fill="currentColor"/>
+                    <rect x="5" y="5" width="10" height="1" fill="currentColor"/>
+                    <rect x="3" y="8" width="14" height="1" fill="currentColor"/>
+                    <rect x="7" y="11" width="6" height="1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#constitution-pattern)" class="text-primary-600"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="relative bg-white shadow-sm border-b border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                            </svg>
+                        </div>
+                        <h1 class="text-xl font-bold text-text-primary">ConstitutionLearn</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="dashboard.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Dashboard
+                    </a>
+                    <a href="quiz_module.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Quiz
+                    </a>
+                    <a href="learning_module.html" class="text-primary-600 bg-primary-50 px-3 py-2 rounded-md text-sm font-medium">
+                        Learning
+                    </a>
+                    <a href="profile_module.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Profile
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-secondary hover:text-primary-600 p-2 rounded-md" aria-label="Open mobile menu" title="Open mobile menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-border-light">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">
+                    Dashboard
+                </a>
+                <a href="quiz_module.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">
+                    Quiz
+                </a>
+                <a href="learning_module.html" class="text-primary-600 bg-primary-50 block px-3 py-2 rounded-md text-base font-medium">
+                    Learning
+                </a>
+                <a href="profile_module.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">
+                    Profile
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-text-primary mb-2">Learning Module</h1>
+                    <p class="text-text-secondary">Master constitutional concepts through interactive flashcards</p>
+                    <p id="dataset-info" class="text-xs text-primary-600 mt-1">📚 Loading Indian Constitution articles...</p>
+                </div>
+                <div class="mt-4 sm:mt-0 flex items-center space-x-4">
+                    <div class="bg-white rounded-lg px-4 py-2 shadow-sm border border-border-light">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span id="total-points" class="text-sm font-semibold text-text-primary">1,250 pts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filters -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                <h2 class="text-lg font-semibold text-text-primary mb-4">Learning Categories</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button class="category-filter active bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-primary-700" data-category="all">
+                        All Topics
+                    </button>
+                    <button class="category-filter bg-surface border border-border text-text-secondary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200" data-category="fundamental-rights">
+                        Fundamental Rights
+                    </button>
+                    <button class="category-filter bg-surface border border-border text-text-secondary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200" data-category="directive-principles">
+                        Directive Principles
+                    </button>
+                    <button class="category-filter bg-surface border border-border text-text-secondary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200" data-category="amendments">
+                        Constitutional Amendments
+                    </button>
+                    <button class="category-filter bg-surface border border-border text-text-secondary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200" data-category="duties">
+                        Fundamental Duties
+                    </button>
+                </div>
+                
+                <!-- Search Articles -->
+                <div class="mt-4">
+                    <div class="relative">
+                        <input type="text" id="article-search" placeholder="Search articles by number or keyword..." class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                        <button id="clear-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-xs text-text-tertiary mt-2">💡 Try searching: "Article 21", "equality", "parliament", or any keyword</p>
+                    
+                    <!-- Search Results Info Panel -->
+                    <div id="search-info-panel" class="hidden mt-4 bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-4 border border-primary-200">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                </svg>
+                                <h3 class="text-sm font-semibold text-primary-800">Search Results</h3>
+                            </div>
+                            <button id="close-info-panel" class="text-primary-600 hover:text-primary-800 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div id="search-results-content">
+                            <p class="text-sm text-text-secondary mb-2">Found <span id="results-count" class="font-bold text-primary-700">0</span> matching articles</p>
+                            
+                            <!-- Article Details -->
+                            <div id="article-details" class="hidden">
+                                <div class="bg-white rounded-lg p-4 space-y-3">
+                                    <div>
+                                        <h4 id="article-title" class="text-lg font-bold text-primary-700 mb-1"></h4>
+                                        <p id="article-category" class="text-xs text-accent-600 uppercase font-semibold tracking-wide"></p>
+                                    </div>
+                                    
+                                    <div class="border-t border-border-light pt-3">
+                                        <h5 class="text-sm font-semibold text-text-primary mb-2">📖 Article Content:</h5>
+                                        <p id="article-full-text" class="text-sm text-text-secondary leading-relaxed"></p>
+                                    </div>
+                                    
+                                    <div class="border-t border-border-light pt-3">
+                                        <h5 class="text-sm font-semibold text-text-primary mb-2">💡 Key Information:</h5>
+                                        <p id="article-answer" class="text-sm text-text-secondary italic"></p>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between pt-2">
+                                        <button id="view-in-flashcard" class="text-xs bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                                            📚 View as Flashcard
+                                        </button>
+                                        <span class="text-xs text-text-tertiary">Article <span id="article-position"></span> of <span id="total-results"></span></span>
+                                    </div>
+                                    
+                                    <!-- Navigation for multiple results -->
+                                    <div id="results-navigation" class="hidden flex items-center justify-center space-x-2 pt-2">
+                                        <button id="prev-result" class="p-2 rounded-lg hover:bg-primary-100 transition-colors" title="Previous result">
+                                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                            </svg>
+                                        </button>
+                                        <button id="next-result" class="p-2 rounded-lg hover:bg-primary-100 transition-colors" title="Next result">
+                                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Overview -->
+        <section class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-text-primary">Overall Progress</h3>
+                        <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="flex justify-between text-sm text-text-secondary mb-1">
+                            <span>Cards Mastered</span>
+                            <span id="overall-progress-text">68/120</span>
+                        </div>
+                        <div class="w-full bg-border-light rounded-full h-2">
+                            <div id="overall-progress-bar" class="bg-primary-600 h-2 rounded-full transition-all duration-300 progress-bar-width"></div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-tertiary">Keep going! You're making great progress.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-text-primary">Study Streak</h3>
+                        <div class="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-secondary-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-3xl font-bold text-text-primary mb-1">7 days</div>
+                    <p class="text-xs text-text-tertiary">Your longest streak this month</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-text-primary">Today's Goal</h3>
+                        <div class="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="flex justify-between text-sm text-text-secondary mb-1">
+                            <span>Cards Reviewed</span>
+                            <span>12/15</span>
+                        </div>
+                        <div class="w-full bg-border-light rounded-full h-2">
+                            <div class="bg-accent-600 h-2 rounded-full transition-all duration-300 width-80"></div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-text-tertiary">3 more cards to reach your daily goal</p>
+                </div>
+            </div>
+        </section>
+<!-- Learning Video Section -->
+        <!-- Constitution Learning Videos -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+
+                <h2 class="text-xl font-semibold text-text-primary mb-6">
+                    Constitution Learning Videos
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Video 1 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/sDstf8ockUo"
+                        title="Constitution Video 1" allowfullscreen></iframe>
+
+                    <!-- Video 2 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/yKmQOnRSbpc"
+                        title="Constitution Video 2" allowfullscreen></iframe>
+
+                    <!-- Video 3 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/pr1OKiQHeJo"
+                        title="Constitution Video 3" allowfullscreen></iframe>
+
+                    <!-- Video 4 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/Z5nQ4xea9ts"
+                        title="Constitution Video 4" allowfullscreen></iframe>
+
+                    <!-- Video 5 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/0JEyG1V_OL8"
+                        title="Constitution Video 5" allowfullscreen></iframe>
+                    <!-- Video 6 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://youtu.be/Y3aCoOo-yMA?si=S_HEelsKV6-1V5qA"
+                        title="Constitution Video 6" allowfullscreen></iframe>
+
+
+                </div>
+
+            </div>
+        </section>
+        <!-- Flashcard Interface -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-lg border border-border-light overflow-hidden">
+                <!-- Flashcard Header -->
+                <div class="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-white">
+                                <h3 class="text-lg font-semibold">Fundamental Rights</h3>
+                                <p class="text-primary-100 text-sm">Article 14-32</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button id="bookmark-btn" class="text-primary-100 hover:text-white transition-colors duration-200" title="Bookmark this card">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                            <div class="text-primary-100 text-sm">
+                                <span id="card-counter">1 / 25</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flashcard Content -->
+                <div class="p-8">
+                    <div id="flashcard-container" class="relative">
+                        <!-- Flashcard -->
+                        <div id="flashcard" class="flashcard bg-gradient-to-br from-surface to-surface-secondary rounded-xl border-2 border-border-light min-h-80 cursor-pointer transition-transform duration-500 transform-style-preserve-3d">
+                            <!-- Front Side -->
+                            <div class="flashcard-front absolute inset-0 p-8 flex flex-col justify-center items-center text-center backface-hidden">
+                                <div class="mb-6">
+                                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-text-primary mb-2">Right to Equality</h4>
+                                    <p class="text-text-secondary">Article 14</p>
+                                </div>
+                                <p class="text-lg text-text-primary leading-relaxed">
+                                    What does Article 14 of the Indian Constitution guarantee to all citizens?
+                                </p>
+                                <div class="mt-6">
+                                    <p class="text-sm text-text-tertiary">Click to reveal answer</p>
+                                </div>
+                            </div>
+
+                            <!-- Back Side -->
+                            <div class="flashcard-back absolute inset-0 p-8 flex flex-col justify-center backface-hidden transform rotateY-180">
+                                <div class="mb-6">
+                                    <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-8 h-8 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-text-primary mb-2">Answer</h4>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg text-text-primary leading-relaxed mb-4">
+                                        Article 14 guarantees <strong>equality before law and equal protection of laws</strong> to all persons within the territory of India.
+                                    </p>
+                                    <div class="bg-accent-50 rounded-lg p-4 mb-4">
+                                        <p class="text-sm text-accent-700">
+                                            <strong>Key Point:</strong> This means the state cannot deny any person equality before the law or equal protection of laws, ensuring no discrimination based on religion, race, caste, sex, or place of birth.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mt-6">
+                                    <p class="text-sm text-text-tertiary">Click to see question again</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Difficulty Rating -->
+                    <div class="mt-6 flex items-center justify-center space-x-4">
+                        <p class="text-sm font-medium text-text-secondary">How difficult was this card?</p>
+                        <div class="flex space-x-2">
+                            <button class="difficulty-btn px-3 py-1 rounded-lg text-sm font-medium bg-accent-100 text-accent-700 hover:bg-accent-200 transition-colors duration-200" data-difficulty="easy">
+                                Easy
+                            </button>
+                            <button class="difficulty-btn px-3 py-1 rounded-lg text-sm font-medium bg-secondary-100 text-secondary-700 hover:bg-secondary-200 transition-colors duration-200" data-difficulty="medium">
+                                Medium
+                            </button>
+                            <button class="difficulty-btn px-3 py-1 rounded-lg text-sm font-medium bg-red-100 text-red-700 hover:bg-red-200 transition-colors duration-200" data-difficulty="hard">
+                                Hard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="bg-surface-secondary px-6 py-4 border-t border-border-light">
+                    <div class="flex items-center justify-between">
+                        <button id="prev-card" class="flex items-center space-x-2 px-4 py-2 bg-white border border-border rounded-lg text-text-secondary hover:text-primary-600 hover:border-primary-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            <span class="text-sm font-medium">Previous</span>
+                        </button>
+
+                        <div class="flex items-center space-x-3">
+                            <button id="shuffle-deck" class="flex items-center space-x-2 px-4 py-2 bg-white border border-border rounded-lg text-text-secondary hover:text-primary-600 hover:border-primary-200 transition-all duration-200">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                <span class="text-sm font-medium">Shuffle</span>
+                            </button>
+
+                            <div class="w-32 bg-border-light rounded-full h-2">
+                                <div id="progress-bar" class="bg-primary-600 h-2 rounded-full transition-all duration-300 progress-bar-width"></div>
+                            </div>
+                        </div>
+
+                        <button id="next-card" class="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all duration-200">
+                            <span class="text-sm font-medium">Next</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-text-primary">Personal Notes</h3>
+                    <button id="save-note" class="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors duration-200">
+                        Save Note
+                    </button>
+                </div>
+                <textarea id="note-textarea" placeholder="Add your personal notes about this card..." class="w-full h-24 p-4 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 text-text-primary placeholder-text-tertiary resize-none"></textarea>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-text-primary">Take a Quiz</h3>
+                            <p class="text-sm text-text-secondary">Test your knowledge with interactive quizzes</p>
+                        </div>
+                    </div>
+                    <a href="quiz_module.html" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors duration-200">
+                        Start Quiz
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-text-primary">AI Analysis</h3>
+                            <p class="text-sm text-text-secondary">Get detailed explanations and insights</p>
+                        </div>
+                    </div>
+                    <button class="inline-flex items-center px-4 py-2 bg-accent-600 text-white rounded-lg text-sm font-medium hover:bg-accent-700 transition-colors duration-200">
+                        Ask AI
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto mb-4"></div>
+            <h3 class="text-xl font-bold text-text-primary mb-2">Loading Constitution Articles...</h3>
+            <p class="text-text-secondary">Fetching 454 articles from database</p>
+        </div>
+    </div>
+
+    <!-- Achievement Modal -->
+    <div id="achievement-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+            <div class="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4 badge-unlock">
+                <svg class="w-10 h-10 text-secondary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-text-primary mb-2">Achievement Unlocked!</h3>
+            <p id="achievement-text" class="text-text-secondary mb-6">You've completed 10 flashcards in a row!</p>
+            <button id="close-achievement" class="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                Continue Learning
+            </button>
+        </div>
+    </div>
+
+    <!-- Include Constitution Data Manager -->
+    <script src="../js/constitutionData.js"></script>
+    
+    <script>
+        // Constitution dataset integration
+        let constitutionArticles = [];
+        let dataLoaded = false;
+
+        // Category mapping for constitution articles
+        const categoryMapping = {
+            'fundamental-rights': ['Fundamental Rights', 'Article 12', 'Article 13', 'Article 14', 'Article 15', 'Article 16', 'Article 17', 'Article 18', 'Article 19', 'Article 20', 'Article 21', 'Article 22', 'Article 23', 'Article 24', 'Article 25', 'Article 26', 'Article 27', 'Article 28', 'Article 29', 'Article 30', 'Article 31', 'Article 32'],
+            'directive-principles': ['Directive Principles', 'Article 36', 'Article 37', 'Article 38', 'Article 39', 'Article 40', 'Article 41', 'Article 42', 'Article 43', 'Article 44', 'Article 45', 'Article 46', 'Article 47', 'Article 48', 'Article 49', 'Article 50', 'Article 51'],
+            'amendments': ['Amendment', '42nd Amendment', '44th Amendment', '86th Amendment', '101st Amendment'],
+            'duties': ['Fundamental Duties', 'Article 51A']
+        };
+
+        // Convert constitution articles to flashcard format
+        function convertToFlashcard(article, index) {
+            const articleNum = article.id.match(/Article (\d+[A-Z]?)/)?.[1] || index + 1;
+            
+            // Determine category based on article content
+            let category = 'all';
+            const articleId = article.id.toLowerCase();
+            const desc = article.description.toLowerCase();
+            
+            if (desc.includes('fundamental rights') || (parseInt(articleNum) >= 12 && parseInt(articleNum) <= 35)) {
+                category = 'fundamental-rights';
+            } else if (desc.includes('directive principles') || (parseInt(articleNum) >= 36 && parseInt(articleNum) <= 51)) {
+                category = 'directive-principles';
+            } else if (articleId.includes('amendment')) {
+                category = 'amendments';
+            } else if (articleId.includes('51a') || desc.includes('fundamental duties')) {
+                category = 'duties';
+            }
+
+            // Create question and answer from description
+            const sentences = article.description.split('\n').filter(s => s.trim());
+            const firstPart = sentences[0] || article.description.substring(0, 150);
+            const fullText = article.description;
+
+            return {
+                id: article.index || index,
+                category: category,
+                title: article.id,
+                article: article.id,
+                question: `What does ${article.id} state?`,
+                answer: firstPart,
+                explanation: fullText.length > firstPart.length ? fullText.substring(firstPart.length, Math.min(firstPart.length + 300, fullText.length)) + '...' : fullText,
+                difficulty: null,
+                fullText: fullText
+            };
+        }
+
+        // Load constitution data
+        async function loadConstitutionData() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            
+            try {
+                // Fetch all articles
+                await constitutionManager.fetchAllArticles();
+                constitutionArticles = constitutionManager.allArticles;
+                
+                // Convert to flashcard format
+                flashcardData.all = constitutionArticles.map((article, index) => 
+                    convertToFlashcard(article, index)
+                );
+                
+                dataLoaded = true;
+                loadingOverlay.style.display = 'none';
+                
+                // Initialize with loaded data
+                currentDeck = [...flashcardData.all];
+                userProgress.totalCards = flashcardData.all.length;
+                initLearningModule();
+                
+                // Update dataset info
+                const datasetInfo = document.getElementById('dataset-info');
+                if (datasetInfo) {
+                    datasetInfo.textContent = `📚 ${flashcardData.all.length} articles loaded from Indian Constitution dataset`;
+                }
+                
+                console.log(`Loaded ${flashcardData.all.length} articles as flashcards`);
+            } catch (error) {
+                console.error('Error loading constitution data:', error);
+                loadingOverlay.innerHTML = `
+                    <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+                        <div class="text-red-600 text-5xl mb-4">⚠️</div>
+                        <h3 class="text-xl font-bold text-text-primary mb-2">Error Loading Data</h3>
+                        <p class="text-text-secondary mb-4">${error.message}</p>
+                        <button onclick="location.reload()" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+                            Retry
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Flashcard data structure
+        const flashcardData = {
+            'all': [] // Will be populated from constitution dataset
+        };
+
+        // State management
+        let currentCardIndex = 0;
+        let currentCategory = 'all';
+        let isFlipped = false;
+        let currentDeck = [...flashcardData.all];
+        let userProgress = JSON.parse(localStorage.getItem('learning_progress')) || {
+            cardsCompleted: 0,
+            totalCards: flashcardData.all.length,
+            categoryProgress: {},
+            studyStreak: 7,
+            dailyGoal: 15,
+            dailyCompleted: 12,
+            totalPoints: 1250,
+            notes: {}
+        };
+
+        // DOM elements
+        const flashcard = document.getElementById('flashcard');
+        const cardCounter = document.getElementById('card-counter');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-card');
+        const nextBtn = document.getElementById('next-card');
+        const shuffleBtn = document.getElementById('shuffle-deck');
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+        const bookmarkBtn = document.getElementById('bookmark-btn');
+        const noteTextarea = document.getElementById('note-textarea');
+        const saveNoteBtn = document.getElementById('save-note');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const achievementModal = document.getElementById('achievement-modal');
+        const closeAchievementBtn = document.getElementById('close-achievement');
+
+        // Initialize the learning module
+        function initLearningModule() {
+            updateProgressDisplay();
+            loadCurrentCard();
+            loadNote();
+            updateNavigationButtons();
+        }
+
+        // Update progress display
+        function updateProgressDisplay() {
+            const overallProgressText = document.getElementById('overall-progress-text');
+            const overallProgressBar = document.getElementById('overall-progress-bar');
+            const totalPointsEl = document.getElementById('total-points');
+
+            const progressPercentage = Math.round((userProgress.cardsCompleted / userProgress.totalCards) * 100);
+            
+            overallProgressText.textContent = `${userProgress.cardsCompleted}/${userProgress.totalCards}`;
+            overallProgressBar.style.width = `${progressPercentage}%`;
+            totalPointsEl.textContent = `${userProgress.totalPoints.toLocaleString()} pts`;
+
+            // Update card progress
+            const cardProgressPercentage = Math.round(((currentCardIndex + 1) / currentDeck.length) * 100);
+            progressBar.style.width = `${cardProgressPercentage}%`;
+            cardCounter.textContent = `${currentCardIndex + 1} / ${currentDeck.length}`;
+        }
+
+        // Load current card
+        function loadCurrentCard() {
+            const card = currentDeck[currentCardIndex];
+            if (!card) return;
+
+            const frontSide = flashcard.querySelector('.flashcard-front');
+            const backSide = flashcard.querySelector('.flashcard-back');
+
+            // Update front side
+            frontSide.querySelector('h4').textContent = card.title;
+            frontSide.querySelector('p').textContent = card.article;
+            frontSide.querySelector('.text-lg').textContent = card.question;
+
+            // Update back side
+            backSide.querySelector('.text-lg').textContent = card.answer;
+            backSide.querySelector('.text-sm').innerHTML = `<strong>Key Point:</strong> ${card.explanation}`;
+
+            // Reset flip state
+            isFlipped = false;
+            flashcard.classList.remove('flipped');
+
+            // Load note for current card
+            loadNote();
+        }
+
+        // Flip card functionality
+        flashcard.addEventListener('click', function() {
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                flashcard.style.transform = 'rotateY(180deg)';
+            } else {
+                flashcard.style.transform = 'rotateY(0deg)';
+            }
+        });
+
+        // Navigation functions
+        function nextCard() {
+            if (currentCardIndex < currentDeck.length - 1) {
+                currentCardIndex++;
+                loadCurrentCard();
+                updateProgressDisplay();
+                updateNavigationButtons();
+                
+                // Award points for completing a card
+                if (isFlipped) {
+                    userProgress.totalPoints += 10;
+                    userProgress.cardsCompleted++;
+                    saveProgress();
+                    
+                    // Check for achievements
+                    checkAchievements();
+                }
+            }
+        }
+
+        function prevCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                loadCurrentCard();
+                updateProgressDisplay();
+                updateNavigationButtons();
+            }
+        }
+
+        function shuffleDeck() {
+            for (let i = currentDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
+            }
+            currentCardIndex = 0;
+            loadCurrentCard();
+            updateProgressDisplay();
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            prevBtn.disabled = currentCardIndex === 0;
+            nextBtn.disabled = currentCardIndex === currentDeck.length - 1;
+        }
+
+        // Category filtering
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            if (category === 'all') {
+                currentDeck = [...flashcardData.all];
+            } else {
+                currentDeck = flashcardData.all.filter(card => card.category === category);
+            }
+            
+            currentCardIndex = 0;
+            loadCurrentCard();
+            updateProgressDisplay();
+            updateNavigationButtons();
+
+            // Update active filter button
+            categoryFilters.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary-600', 'text-white');
+                btn.classList.add('bg-surface', 'border', 'border-border', 'text-text-secondary');
+            });
+            
+            const activeBtn = document.querySelector(`[data-category="${category}"]`);
+            activeBtn.classList.add('active', 'bg-primary-600', 'text-white');
+            activeBtn.classList.remove('bg-surface', 'border', 'border-border', 'text-text-secondary');
+        }
+
+        // Search functionality with enhanced info panel
+        const articleSearch = document.getElementById('article-search');
+        const clearSearchBtn = document.getElementById('clear-search');
+        const searchInfoPanel = document.getElementById('search-info-panel');
+        const closeInfoPanelBtn = document.getElementById('close-info-panel');
+        const resultsCountSpan = document.getElementById('results-count');
+        const articleDetailsDiv = document.getElementById('article-details');
+        const viewInFlashcardBtn = document.getElementById('view-in-flashcard');
+        const prevResultBtn = document.getElementById('prev-result');
+        const nextResultBtn = document.getElementById('next-result');
+        const resultsNavigation = document.getElementById('results-navigation');
+        
+        let searchResults = [];
+        let currentSearchIndex = 0;
+        
+        function showArticleInfo(article, index, total) {
+            document.getElementById('article-title').textContent = article.title || article.article;
+            document.getElementById('article-category').textContent = article.category?.replace('-', ' ') || 'General';
+            document.getElementById('article-full-text').textContent = article.fullText || article.explanation || article.answer;
+            document.getElementById('article-answer').textContent = article.answer;
+            document.getElementById('article-position').textContent = index + 1;
+            document.getElementById('total-results').textContent = total;
+            
+            articleDetailsDiv.classList.remove('hidden');
+            
+            // Show navigation if multiple results
+            if (total > 1) {
+                resultsNavigation.classList.remove('hidden');
+                prevResultBtn.disabled = index === 0;
+                nextResultBtn.disabled = index === total - 1;
+                prevResultBtn.style.opacity = index === 0 ? '0.3' : '1';
+                nextResultBtn.style.opacity = index === total - 1 ? '0.3' : '1';
+            } else {
+                resultsNavigation.classList.add('hidden');
+            }
+        }
+        
+        function updateSearchDisplay(searchTerm) {
+            if (searchResults.length > 0) {
+                searchInfoPanel.classList.remove('hidden');
+                resultsCountSpan.textContent = searchResults.length;
+                showArticleInfo(searchResults[currentSearchIndex], currentSearchIndex, searchResults.length);
+            } else if (searchTerm) {
+                searchInfoPanel.classList.remove('hidden');
+                resultsCountSpan.textContent = '0';
+                articleDetailsDiv.classList.add('hidden');
+            } else {
+                searchInfoPanel.classList.add('hidden');
+            }
+        }
+        
+        if (articleSearch) {
+            articleSearch.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.trim().toLowerCase();
+                
+                // Show/hide clear button
+                if (searchTerm) {
+                    clearSearchBtn.classList.remove('hidden');
+                } else {
+                    clearSearchBtn.classList.add('hidden');
+                }
+                
+                if (!searchTerm) {
+                    currentDeck = [...flashcardData.all];
+                    searchResults = [];
+                    searchInfoPanel.classList.add('hidden');
+                } else {
+                    searchResults = flashcardData.all.filter(card => 
+                        card.title.toLowerCase().includes(searchTerm) ||
+                        card.article.toLowerCase().includes(searchTerm) ||
+                        card.question.toLowerCase().includes(searchTerm) ||
+                        card.answer.toLowerCase().includes(searchTerm) ||
+                        (card.fullText && card.fullText.toLowerCase().includes(searchTerm))
+                    );
+                    
+                    currentDeck = [...searchResults];
+                    currentSearchIndex = 0;
+                    updateSearchDisplay(searchTerm);
+                }
+                
+                currentCardIndex = 0;
+                if (currentDeck.length > 0) {
+                    loadCurrentCard();
+                    updateProgressDisplay();
+                    updateNavigationButtons();
+                } else {
+                    // Show no results message
+                    const frontSide = flashcard.querySelector('.flashcard-front');
+                    frontSide.querySelector('h4').textContent = 'No Results';
+                    frontSide.querySelector('p').textContent = '';
+                    frontSide.querySelector('.text-lg').textContent = `No articles found for "${searchTerm}". Try a different search term.`;
+                }
+            });
+        }
+        
+        // Clear search button
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                articleSearch.value = '';
+                clearSearchBtn.classList.add('hidden');
+                searchInfoPanel.classList.add('hidden');
+                currentDeck = [...flashcardData.all];
+                currentCardIndex = 0;
+                loadCurrentCard();
+                updateProgressDisplay();
+                updateNavigationButtons();
+            });
+        }
+        
+        // Close info panel
+        if (closeInfoPanelBtn) {
+            closeInfoPanelBtn.addEventListener('click', () => {
+                searchInfoPanel.classList.add('hidden');
+            });
+        }
+        
+        // View in flashcard button
+        if (viewInFlashcardBtn) {
+            viewInFlashcardBtn.addEventListener('click', () => {
+                currentCardIndex = currentSearchIndex;
+                loadCurrentCard();
+                updateProgressDisplay();
+                updateNavigationButtons();
+                // Scroll to flashcard
+                flashcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+        
+        // Navigation between search results
+        if (prevResultBtn) {
+            prevResultBtn.addEventListener('click', () => {
+                if (currentSearchIndex > 0) {
+                    currentSearchIndex--;
+                    showArticleInfo(searchResults[currentSearchIndex], currentSearchIndex, searchResults.length);
+                }
+            });
+        }
+        
+        if (nextResultBtn) {
+            nextResultBtn.addEventListener('click', () => {
+                if (currentSearchIndex < searchResults.length - 1) {
+                    currentSearchIndex++;
+                    showArticleInfo(searchResults[currentSearchIndex], currentSearchIndex, searchResults.length);
+                }
+            });
+        }
+
+        // Difficulty rating
+        function rateDifficulty(difficulty) {
+            const currentCard = currentDeck[currentCardIndex];
+            currentCard.difficulty = difficulty;
+            
+            // Award different points based on difficulty
+            let points = 0;
+            switch(difficulty) {
+                case 'easy': points = 5; break;
+                case 'medium': points = 10; break;
+                case 'hard': points = 15; break;
+            }
+            
+            userProgress.totalPoints += points;
+            saveProgress();
+            updateProgressDisplay();
+
+            // Visual feedback
+            difficultyBtns.forEach(btn => btn.classList.remove('ring-2', 'ring-primary-500'));
+            event.target.classList.add('ring-2', 'ring-primary-500');
+            
+            setTimeout(() => {
+                event.target.classList.remove('ring-2', 'ring-primary-500');
+            }, 1000);
+        }
+
+        // Notes functionality
+        function loadNote() {
+            const cardId = currentDeck[currentCardIndex]?.id;
+            if (cardId && userProgress.notes[cardId]) {
+                noteTextarea.value = userProgress.notes[cardId];
+            } else {
+                noteTextarea.value = '';
+            }
+        }
+
+        function saveNote() {
+            const cardId = currentDeck[currentCardIndex]?.id;
+            const noteText = noteTextarea.value.trim();
+            
+            if (cardId) {
+                if (noteText) {
+                    userProgress.notes[cardId] = noteText;
+                } else {
+                    delete userProgress.notes[cardId];
+                }
+                saveProgress();
+                
+                // Visual feedback
+                saveNoteBtn.textContent = 'Saved!';
+                saveNoteBtn.classList.add('bg-accent-600');
+                saveNoteBtn.classList.remove('bg-primary-600');
+                
+                setTimeout(() => {
+                    saveNoteBtn.textContent = 'Save Note';
+                    saveNoteBtn.classList.remove('bg-accent-600');
+                    saveNoteBtn.classList.add('bg-primary-600');
+                }, 2000);
+            }
+        }
+
+        // Bookmark functionality
+        function toggleBookmark() {
+            const cardId = currentDeck[currentCardIndex]?.id;
+            if (!userProgress.bookmarks) userProgress.bookmarks = [];
+            
+            const isBookmarked = userProgress.bookmarks.includes(cardId);
+            
+            if (isBookmarked) {
+                userProgress.bookmarks = userProgress.bookmarks.filter(id => id !== cardId);
+                bookmarkBtn.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                    </svg>
+                `;
+            } else {
+                userProgress.bookmarks.push(cardId);
+                bookmarkBtn.innerHTML = `
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                    </svg>
+                `;
+            }
+            
+            saveProgress();
+        }
+
+        // Achievement system
+        function checkAchievements() {
+            const achievements = [
+                {
+                    id: 'first_ten',
+                    condition: userProgress.cardsCompleted >= 10,
+                    title: 'Getting Started!',
+                    description: "You've completed your first 10 flashcards!"
+                },
+                {
+                    id: 'streak_master',
+                    condition: userProgress.studyStreak >= 7,
+                    title: 'Streak Master!',
+                    description: "You've maintained a 7-day study streak!"
+                },
+                {
+                    id: 'point_collector',
+                    condition: userProgress.totalPoints >= 1000,
+                    title: 'Point Collector!',
+                    description: "You've earned over 1,000 points!"
+                }
+            ];
+
+            achievements.forEach(achievement => {
+                if (achievement.condition && !userProgress.achievements?.includes(achievement.id)) {
+                    if (!userProgress.achievements) userProgress.achievements = [];
+                    userProgress.achievements.push(achievement.id);
+                    showAchievement(achievement);
+                    saveProgress();
+                }
+            });
+        }
+
+        function showAchievement(achievement) {
+            document.getElementById('achievement-text').textContent = achievement.description;
+            achievementModal.classList.remove('hidden');
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('learning_progress', JSON.stringify(userProgress));
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+        shuffleBtn.addEventListener('click', shuffleDeck);
+        bookmarkBtn.addEventListener('click', toggleBookmark);
+        saveNoteBtn.addEventListener('click', saveNote);
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        closeAchievementBtn.addEventListener('click', () => achievementModal.classList.add('hidden'));
+
+        categoryFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                filterByCategory(category);
+            });
+        });
+
+        difficultyBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const difficulty = btn.dataset.difficulty;
+                rateDifficulty(difficulty);
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    prevCard();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    nextCard();
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    flashcard.click();
+                    break;
+            }
+        });
+
+        // Touch gestures for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        flashcard.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        flashcard.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next card
+                    nextCard();
+                } else {
+                    // Swipe right - previous card
+                    prevCard();
+                }
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load constitution data first
+            loadConstitutionData();
+        });
+
+        // Auto-save notes while typing
+        noteTextarea.addEventListener('input', () => {
+            clearTimeout(noteTextarea.saveTimeout);
+            noteTextarea.saveTimeout = setTimeout(() => {
+                const cardId = currentDeck[currentCardIndex]?.id;
+                const noteText = noteTextarea.value.trim();
+                
+                if (cardId) {
+                    if (noteText) {
+                        userProgress.notes[cardId] = noteText;
+                    } else {
+                        delete userProgress.notes[cardId];
+                    }
+                    saveProgress();
+                }
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        .flashcard {
+            perspective: 1000px;
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            backface-visibility: hidden;
+        }
+
+        .rotateY-180 {
+            transform: rotateY(180deg);
+        }
+
+        .transform-style-preserve-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .flashcard {
+            transition: transform 0.6s;
+        }
+
+        .category-filter.active {
+            background-color: var(--color-primary-600) !important;
+            color: white !important;
+            border-color: var(--color-primary-600) !important;
+        }
+
+        .progress-bar-width {
+            width: 4%;
+        }
+
+        @media (max-width: 768px) {
+            .flashcard-front,
+            .flashcard-back {
+                padding: 1.5rem;
+            }
+            
+            .flashcard {
+                min-height: 20rem;
+            }
+        }
+    </style>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

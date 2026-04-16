@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitution Dataset Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Indian Constitution Dataset - Integration Test</h1>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Status</h2>
+            <div id="status" class="space-y-2">
+                <p>⏳ Initializing...</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Statistics</h2>
+            <div id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600" id="totalArticles">-</div>
+                    <div class="text-sm text-gray-600">Total Articles</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600" id="cacheStatus">-</div>
+                    <div class="text-sm text-gray-600">Cache Status</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600" id="loadTime">-</div>
+                    <div class="text-sm text-gray-600">Load Time (ms)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600" id="topicCount">-</div>
+                    <div class="text-sm text-gray-600">Topics</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Quick Tests</h2>
+            <div class="space-y-3">
+                <button onclick="testGetArticle()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Test: Get Article 21
+                </button>
+                <button onclick="testSearch()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Test: Search "Fundamental Rights"
+                </button>
+                <button onclick="testRandom()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                    Test: Get Random Article
+                </button>
+                <button onclick="clearCacheTest()" class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                    Clear Cache
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+            <div id="results" class="bg-gray-50 p-4 rounded overflow-auto max-h-96">
+                <pre class="text-sm">No tests run yet.</pre>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="pages/constitution.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                Go to Constitution Browser
+            </a>
+            <a href="pages/chatbot.html" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 ml-4">
+                Go to AI Chatbot
+            </a>
+        </div>
+    </div>
+
+    <script src="js/constitutionData.js"></script>
+    <script>
+        const statusEl = document.getElementById('status');
+        const resultsEl = document.getElementById('results');
+        let startTime;
+
+        function updateStatus(message, type = 'info') {
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : '⏳';
+            const color = type === 'success' ? 'text-green-600' : type === 'error' ? 'text-red-600' : 'text-blue-600';
+            statusEl.innerHTML += `<p class="${color}">${icon} ${message}</p>`;
+        }
+
+        function updateResults(data) {
+            resultsEl.innerHTML = `<pre class="text-sm">${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        async function initialize() {
+            try {
+                startTime = Date.now();
+                updateStatus('Loading constitution data...');
+                
+                const data = await constitutionManager.fetchAllArticles();
+                const loadTime = Date.now() - startTime;
+                
+                updateStatus(`Successfully loaded ${data.length} articles!`, 'success');
+                
+                // Update statistics
+                const stats = constitutionManager.getStatistics();
+                document.getElementById('totalArticles').textContent = stats.totalArticles;
+                document.getElementById('cacheStatus').textContent = stats.cached ? 'Cached' : 'Fresh';
+                document.getElementById('loadTime').textContent = loadTime;
+                document.getElementById('topicCount').textContent = stats.topics.length;
+                
+                updateStatus('System ready!', 'success');
+                
+                // Show sample article
+                const sample = data[0];
+                updateResults({
+                    message: 'Sample Article (First in dataset)',
+                    article: sample
+                });
+                
+            } catch (error) {
+                updateStatus('Error loading data: ' + error.message, 'error');
+                console.error(error);
+            }
+        }
+
+        async function testGetArticle() {
+            try {
+                updateStatus('Testing: Get Article 21...');
+                const article = constitutionManager.getArticleByNumber(21);
+                
+                if (article) {
+                    updateStatus('Article 21 retrieved successfully!', 'success');
+                    updateResults({
+                        test: 'Get Article 21',
+                        result: 'SUCCESS',
+                        article: article
+                    });
+                } else {
+                    updateStatus('Article 21 not found!', 'error');
+                    updateResults({
+                        test: 'Get Article 21',
+                        result: 'FAILED',
+                        reason: 'Article not found'
+                    });
+                }
+            } catch (error) {
+                updateStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function testSearch() {
+            try {
+                updateStatus('Testing: Search for "Fundamental Rights"...');
+                const results = constitutionManager.searchArticles('Fundamental Rights');
+                
+                if (results.length > 0) {
+                    updateStatus(`Found ${results.length} articles!`, 'success');
+                    updateResults({
+                        test: 'Search "Fundamental Rights"',
+                        result: 'SUCCESS',
+                        count: results.length,
+                        articles: results.slice(0, 3).map(a => ({
+                            id: a.id,
+                            preview: a.description.substring(0, 100) + '...'
+                        }))
+                    });
+                } else {
+                    updateStatus('No articles found!', 'error');
+                }
+            } catch (error) {
+                updateStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function testRandom() {
+            try {
+                updateStatus('Testing: Get random article...');
+                const article = constitutionManager.getRandomArticle();
+                
+                if (article) {
+                    updateStatus('Random article retrieved!', 'success');
+                    updateResults({
+                        test: 'Random Article',
+                        result: 'SUCCESS',
+                        article: article
+                    });
+                } else {
+                    updateStatus('Failed to get random article!', 'error');
+                }
+            } catch (error) {
+                updateStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function clearCacheTest() {
+            if (confirm('Are you sure you want to clear the cache? You will need to reload the data.')) {
+                try {
+                    updateStatus('Clearing cache...');
+                    constitutionManager.clearCache();
+                    updateStatus('Cache cleared! Reload the page to fetch fresh data.', 'success');
+                    
+                    document.getElementById('cacheStatus').textContent = 'Cleared';
+                    
+                    updateResults({
+                        test: 'Clear Cache',
+                        result: 'SUCCESS',
+                        message: 'Cache has been cleared. Refresh the page to reload data.'
+                    });
+                } catch (error) {
+                    updateStatus('Error: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

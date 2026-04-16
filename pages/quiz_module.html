@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Module - ConstitutionLearn</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fconstituti1589back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 via-white to-accent-50 min-h-screen">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="constitution-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="1" fill="currentColor"/>
+                    <rect x="5" y="5" width="10" height="1" fill="currentColor"/>
+                    <rect x="3" y="8" width="14" height="1" fill="currentColor"/>
+                    <rect x="7" y="11" width="6" height="1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#constitution-pattern)" class="text-primary-600"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="relative bg-white shadow-sm border-b border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Title -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-primary-600 rounded-xl mr-3 shadow-md">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-text-primary">ConstitutionLearn</h1>
+                            <p class="text-sm text-text-secondary">Quiz Module</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="dashboard.html" class="text-text-secondary hover:text-primary-600 transition-colors duration-200 font-medium">
+                        Dashboard
+                    </a>
+                    <a href="learning_module.html" class="text-text-secondary hover:text-primary-600 transition-colors duration-200 font-medium">
+                        Learning
+                    </a>
+                    <a href="quiz_module.html" class="text-primary-600 font-semibold">
+                        Quiz
+                    </a>
+                    <a href="profile_module.html" class="text-text-secondary hover:text-primary-600 transition-colors duration-200 font-medium">
+                        Profile
+                    </a>
+                </nav>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:flex items-center space-x-3">
+                        <div class="text-right">
+                            <p class="text-sm font-medium text-text-primary" id="user-name">Student User</p>
+                            <p class="text-xs text-text-secondary">Quiz Mode</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-primary-200" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-surface-secondary transition-colors duration-200">
+                        <svg class="w-6 h-6 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-border-light">
+            <div class="px-4 py-2 space-y-1">
+                <a href="dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary-600 hover:bg-surface-secondary rounded-lg transition-colors duration-200">
+                    Dashboard
+                </a>
+                <a href="learning_module.html" class="block px-3 py-2 text-text-secondary hover:text-primary-600 hover:bg-surface-secondary rounded-lg transition-colors duration-200">
+                    Learning
+                </a>
+                <a href="quiz_module.html" class="block px-3 py-2 text-primary-600 bg-primary-50 rounded-lg font-semibold">
+                    Quiz
+                </a>
+                <a href="profile_module.html" class="block px-3 py-2 text-text-secondary hover:text-primary-600 hover:bg-surface-secondary rounded-lg transition-colors duration-200">
+                    Profile
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Quiz Selection Screen -->
+        <div id="quiz-selection" class="space-y-8">
+            <!-- Page Header -->
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-text-primary mb-4">Constitutional Knowledge Quiz</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    Test your understanding of the Indian Constitution with our interactive quizzes. Choose from different topics and difficulty levels.
+                </p>
+            </div>
+
+            <!-- Quiz Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Fundamental Rights Quiz -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light hover:shadow-xl transition-all duration-200 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-text-primary">Fundamental Rights</h3>
+                            <p class="text-sm text-text-secondary">Articles 12-35</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary mb-4">Test your knowledge of fundamental rights guaranteed by the Indian Constitution.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-text-tertiary">10 Questions</span>
+                        <span class="text-sm text-text-tertiary">15 Minutes</span>
+                        <span class="px-2 py-1 bg-accent-100 text-accent-700 rounded-full text-xs font-medium">Medium</span>
+                    </div>
+                    <button onclick="startQuiz('fundamental-rights')" class="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        Start Quiz
+                    </button>
+                </div>
+
+                <!-- Directive Principles Quiz -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light hover:shadow-xl transition-all duration-200 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-secondary-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-text-primary">Directive Principles</h3>
+                            <p class="text-sm text-text-secondary">Articles 36-51</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary mb-4">Learn about the directive principles of state policy and their significance.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-text-tertiary">8 Questions</span>
+                        <span class="text-sm text-text-tertiary">12 Minutes</span>
+                        <span class="px-2 py-1 bg-secondary-100 text-secondary-700 rounded-full text-xs font-medium">Easy</span>
+                    </div>
+                    <button onclick="startQuiz('directive-principles')" class="w-full bg-secondary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-secondary-700 transition-colors duration-200">
+                        Start Quiz
+                    </button>
+                </div>
+
+                <!-- Fundamental Duties Quiz -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light hover:shadow-xl transition-all duration-200 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-text-primary">Fundamental Duties</h3>
+                            <p class="text-sm text-text-secondary">Article 51A</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary mb-4">Understand the fundamental duties of every citizen of India.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-text-tertiary">6 Questions</span>
+                        <span class="text-sm text-text-tertiary">10 Minutes</span>
+                        <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">Hard</span>
+                    </div>
+                    <button onclick="startQuiz('fundamental-duties')" class="w-full bg-accent-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-accent-700 transition-colors duration-200">
+                        Start Quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Quiz Results -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">Recent Quiz Results</h3>
+                <div class="space-y-4" id="recent-results">
+                    <div class="flex items-center justify-between p-4 bg-surface-secondary rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-text-primary">Fundamental Rights</p>
+                                <p class="text-sm text-text-secondary">Completed 2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-accent-600">85%</p>
+                            <p class="text-sm text-text-secondary">8/10 correct</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-4 bg-surface-secondary rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-secondary-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-text-primary">Directive Principles</p>
+                                <p class="text-sm text-text-secondary">Completed yesterday</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-secondary-600">92%</p>
+                            <p class="text-sm text-text-secondary">7/8 correct</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Interface -->
+        <div id="quiz-interface" class="hidden">
+            <!-- Quiz Header -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-text-primary" id="quiz-title">Fundamental Rights Quiz</h2>
+                        <p class="text-text-secondary" id="quiz-description">Test your knowledge of fundamental rights</p>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <!-- Timer -->
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span class="text-lg font-bold text-primary-600" id="timer">15:00</span>
+                        </div>
+                        <!-- Progress -->
+                        <div class="text-right">
+                            <p class="text-sm text-text-secondary">Question</p>
+                            <p class="text-lg font-bold text-text-primary" id="question-counter">1 / 10</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="mt-4">
+                    <div class="flex justify-between text-sm text-text-secondary mb-2">
+                        <span>Progress</span>
+                        <span id="progress-percentage">10%</span>
+                    </div>
+                    <div class="w-full bg-border-light rounded-full h-2">
+                        <div id="progress-bar" class="bg-primary-600 h-2 rounded-full transition-all duration-300" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-border-light mb-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-text-primary mb-4" id="question-text">
+                        Which article of the Indian Constitution deals with the Right to Equality?
+                    </h3>
+                </div>
+
+                <!-- Answer Options -->
+                <div class="space-y-3" id="answer-options">
+                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-surface-secondary transition-colors duration-200 answer-option">
+                        <input type="radio" name="answer" value="a" class="sr-only" />
+                        <div class="w-6 h-6 border-2 border-border rounded-full mr-4 flex items-center justify-center option-indicator">
+                            <div class="w-3 h-3 bg-primary-600 rounded-full hidden option-selected"></div>
+                        </div>
+                        <span class="text-text-primary font-medium">Article 14</span>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-surface-secondary transition-colors duration-200 answer-option">
+                        <input type="radio" name="answer" value="b" class="sr-only" />
+                        <div class="w-6 h-6 border-2 border-border rounded-full mr-4 flex items-center justify-center option-indicator">
+                            <div class="w-3 h-3 bg-primary-600 rounded-full hidden option-selected"></div>
+                        </div>
+                        <span class="text-text-primary font-medium">Article 15</span>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-surface-secondary transition-colors duration-200 answer-option">
+                        <input type="radio" name="answer" value="c" class="sr-only" />
+                        <div class="w-6 h-6 border-2 border-border rounded-full mr-4 flex items-center justify-center option-indicator">
+                            <div class="w-3 h-3 bg-primary-600 rounded-full hidden option-selected"></div>
+                        </div>
+                        <span class="text-text-primary font-medium">Article 16</span>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-surface-secondary transition-colors duration-200 answer-option">
+                        <input type="radio" name="answer" value="d" class="sr-only" />
+                        <div class="w-6 h-6 border-2 border-border rounded-full mr-4 flex items-center justify-center option-indicator">
+                            <div class="w-3 h-3 bg-primary-600 rounded-full hidden option-selected"></div>
+                        </div>
+                        <span class="text-text-primary font-medium">Article 17</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-between items-center">
+                <button id="prev-btn" class="px-6 py-3 border border-border text-text-secondary rounded-lg hover:bg-surface-secondary transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Previous
+                </button>
+                
+                <div class="flex space-x-3">
+                    <button id="next-btn" class="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Next
+                        <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    
+                    <button id="submit-btn" class="hidden px-6 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors duration-200">
+                        Submit Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Results Modal -->
+    <div id="results-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <!-- Modal Header -->
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-2">Quiz Completed!</h3>
+                    <p class="text-text-secondary">Here are your results</p>
+                </div>
+
+                <!-- Score Display -->
+                <div class="bg-gradient-to-r from-accent-50 to-primary-50 rounded-xl p-6 mb-6">
+                    <div class="text-center">
+                        <p class="text-4xl font-bold text-primary-600 mb-2" id="final-score">85%</p>
+                        <p class="text-text-secondary mb-4" id="score-details">You got 8 out of 10 questions correct</p>
+                        <div class="flex justify-center space-x-6 text-sm">
+                            <div class="text-center">
+                                <p class="font-semibold text-accent-600" id="correct-count">8</p>
+                                <p class="text-text-tertiary">Correct</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-semibold text-red-600" id="incorrect-count">2</p>
+                                <p class="text-text-tertiary">Incorrect</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-semibold text-text-primary" id="time-taken">12:34</p>
+                                <p class="text-text-tertiary">Time Taken</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Notification -->
+                <div id="badge-notification" class="hidden bg-secondary-50 border border-secondary-200 rounded-xl p-4 mb-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-secondary-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-secondary-700">New Badge Earned!</p>
+                            <p class="text-sm text-secondary-600" id="badge-name">Constitution Scholar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Review -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-text-primary mb-4">Question Review</h4>
+                    <div class="space-y-4 max-h-60 overflow-y-auto custom-scrollbar" id="question-review">
+                        <!-- Review items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="retakeQuiz()" class="flex-1 px-6 py-3 border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-semibold">
+                        Retake Quiz
+                    </button>
+                    <button onclick="viewExplanations()" class="flex-1 px-6 py-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 transition-colors duration-200 font-semibold">
+                        View Explanations
+                    </button>
+                    <button onclick="closeResults()" class="flex-1 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-semibold">
+                        Continue Learning
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = {
+            'fundamental-rights': {
+                title: 'Fundamental Rights Quiz',
+                description: 'Test your knowledge of fundamental rights guaranteed by the Indian Constitution',
+                timeLimit: 15, // minutes
+                questions: [
+                    {
+                        question: 'Which article of the Indian Constitution deals with the Right to Equality?',
+                        options: ['Article 14', 'Article 15', 'Article 16', 'Article 17'],
+                        correct: 0,
+                        explanation: 'Article 14 guarantees equality before law and equal protection of laws to all persons within the territory of India.'
+                    },
+                    {
+                        question: 'The Right to Freedom of Speech and Expression is guaranteed under which article?',
+                        options: ['Article 19', 'Article 20', 'Article 21', 'Article 22'],
+                        correct: 0,
+                        explanation: 'Article 19(1)(a) guarantees the right to freedom of speech and expression to all citizens of India.'
+                    },
+                    {
+                        question: 'Which fundamental right is known as the "Heart and Soul" of the Constitution?',
+                        options: ['Right to Equality', 'Right to Constitutional Remedies', 'Right to Freedom', 'Right against Exploitation'],
+                        correct: 1,
+                        explanation: 'Dr. B.R. Ambedkar called Article 32 (Right to Constitutional Remedies) the "Heart and Soul" of the Constitution.'
+                    },
+                    {
+                        question: 'The Right to Education was added as a fundamental right under which article?',
+                        options: ['Article 21A', 'Article 21B', 'Article 22A', 'Article 23A'],
+                        correct: 0,
+                        explanation: 'Article 21A was inserted by the 86th Constitutional Amendment Act, 2002, making education a fundamental right for children aged 6-14 years.'
+                    },
+                    {
+                        question: 'Which article prohibits discrimination on grounds of religion, race, caste, sex, or place of birth?',
+                        options: ['Article 14', 'Article 15', 'Article 16', 'Article 17'],
+                        correct: 1,
+                        explanation: 'Article 15 prohibits discrimination by the State against any citizen on grounds of religion, race, caste, sex, place of birth, or any of them.'
+                    },
+                    {
+                        question: 'The practice of untouchability is abolished under which article?',
+                        options: ['Article 16', 'Article 17', 'Article 18', 'Article 19'],
+                        correct: 1,
+                        explanation: 'Article 17 abolishes untouchability and forbids its practice in any form.'
+                    },
+                    {
+                        question: 'Which fundamental right protects against arbitrary arrest and detention?',
+                        options: ['Article 20', 'Article 21', 'Article 22', 'Article 23'],
+                        correct: 2,
+                        explanation: 'Article 22 provides protection against arbitrary arrest and detention and guarantees certain rights to arrested persons.'
+                    },
+                    {
+                        question: 'The Right to Life and Personal Liberty is guaranteed under which article?',
+                        options: ['Article 20', 'Article 21', 'Article 22', 'Article 23'],
+                        correct: 1,
+                        explanation: 'Article 21 states that no person shall be deprived of his life or personal liberty except according to procedure established by law.'
+                    },
+                    {
+                        question: 'Which article prohibits traffic in human beings and forced labor?',
+                        options: ['Article 22', 'Article 23', 'Article 24', 'Article 25'],
+                        correct: 1,
+                        explanation: 'Article 23 prohibits traffic in human beings and begar (forced labor) and other similar forms of forced labor.'
+                    },
+                    {
+                        question: 'The Right to Freedom of Religion is guaranteed under which articles?',
+                        options: ['Articles 25-28', 'Articles 26-29', 'Articles 27-30', 'Articles 28-31'],
+                        correct: 0,
+                        explanation: 'Articles 25-28 guarantee the Right to Freedom of Religion, including freedom of conscience and free profession, practice, and propagation of religion.'
+                    }
+                ]
+            },
+            'directive-principles': {
+                title: 'Directive Principles Quiz',
+                description: 'Learn about the directive principles of state policy and their significance',
+                timeLimit: 12,
+                questions: [
+                    {
+                        question: 'Directive Principles of State Policy are contained in which part of the Constitution?',
+                        options: ['Part III', 'Part IV', 'Part V', 'Part VI'],
+                        correct: 1,
+                        explanation: 'Directive Principles of State Policy are contained in Part IV of the Indian Constitution (Articles 36-51).'
+                    },
+                    {
+                        question: 'Which article states that the State shall strive to promote the welfare of the people?',
+                        options: ['Article 37', 'Article 38', 'Article 39', 'Article 40'],
+                        correct: 1,
+                        explanation: 'Article 38 directs the State to strive to promote the welfare of the people by securing and protecting a social order in which justice shall inform all institutions of national life.'
+                    },
+                    {
+                        question: 'The concept of Directive Principles was borrowed from which country\'s constitution?',
+                        options: ['USA', 'UK', 'Ireland', 'Canada'],
+                        correct: 2,
+                        explanation: 'The concept of Directive Principles of State Policy was borrowed from the Irish Constitution.'
+                    },
+                    {
+                        question: 'Which article deals with the organization of village panchayats?',
+                        options: ['Article 39', 'Article 40', 'Article 41', 'Article 42'],
+                        correct: 1,
+                        explanation: 'Article 40 directs the State to organize village panchayats and endow them with necessary powers and authority to function as units of self-government.'
+                    },
+                    {
+                        question: 'Article 44 deals with which directive principle?',
+                        options: ['Right to work', 'Uniform Civil Code', 'Free legal aid', 'Environmental protection'],
+                        correct: 1,
+                        explanation: 'Article 44 directs the State to endeavor to secure a Uniform Civil Code for all citizens throughout the territory of India.'
+                    },
+                    {
+                        question: 'Which article directs the State to provide free and compulsory education?',
+                        options: ['Article 43', 'Article 44', 'Article 45', 'Article 46'],
+                        correct: 2,
+                        explanation: 'Article 45 originally directed the State to provide free and compulsory education for all children until the age of 14 years.'
+                    },
+                    {
+                        question: 'The promotion of international peace and security is mentioned in which article?',
+                        options: ['Article 50', 'Article 51', 'Article 52', 'Article 53'],
+                        correct: 1,
+                        explanation: 'Article 51 directs the State to promote international peace and security and maintain just and honorable relations between nations.'
+                    },
+                    {
+                        question: 'Which article deals with the protection and improvement of environment?',
+                        options: ['Article 47', 'Article 48', 'Article 48A', 'Article 49'],
+                        correct: 2,
+                        explanation: 'Article 48A was added by the 42nd Amendment and directs the State to protect and improve the environment and safeguard forests and wildlife.'
+                    }
+                ]
+            },
+            'fundamental-duties': {
+                title: 'Fundamental Duties Quiz',
+                description: 'Understand the fundamental duties of every citizen of India',
+                timeLimit: 10,
+                questions: [
+                    {
+                        question: 'Fundamental Duties were added to the Constitution by which amendment?',
+                        options: ['42nd Amendment', '44th Amendment', '52nd Amendment', '61st Amendment'],
+                        correct: 0,
+                        explanation: 'Fundamental Duties were added to the Indian Constitution by the 42nd Constitutional Amendment Act, 1976.'
+                    },
+                    {
+                        question: 'How many fundamental duties are mentioned in Article 51A?',
+                        options: ['10', '11', '12', '13'],
+                        correct: 1,
+                        explanation: 'There are 11 fundamental duties mentioned in Article 51A of the Indian Constitution.'
+                    },
+                    {
+                        question: 'The concept of Fundamental Duties was borrowed from which country?',
+                        options: ['USSR', 'USA', 'UK', 'France'],
+                        correct: 0,
+                        explanation: 'The concept of Fundamental Duties was borrowed from the Constitution of the former USSR (Soviet Union).'
+                    },
+                    {
+                        question: 'Which committee recommended the inclusion of Fundamental Duties?',
+                        options: ['Swaran Singh Committee', 'Shah Commission', 'Sarkaria Commission', 'Balwantrai Mehta Committee'],
+                        correct: 0,
+                        explanation: 'The Swaran Singh Committee recommended the inclusion of Fundamental Duties in the Indian Constitution.'
+                    },
+                    {
+                        question: 'Which fundamental duty was added by the 86th Amendment?',
+                        options: ['Respect for Constitution', 'Protect environment', 'Provide education to children', 'Defend the country'],
+                        correct: 2,
+                        explanation: 'The 86th Constitutional Amendment Act, 2002 added the duty of parents/guardians to provide education to children between 6-14 years.'
+                    },
+                    {
+                        question: 'Which article contains the Fundamental Duties?',
+                        options: ['Article 51', 'Article 51A', 'Article 52', 'Article 52A'],
+                        correct: 1,
+                        explanation: 'Article 51A contains all the Fundamental Duties of Indian citizens.'
+                    }
+                ]
+            }
+        };
+
+        // Global Variables
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizTimer = null;
+        let timeRemaining = 0;
+        let quizStartTime = null;
+
+        // DOM Elements
+        const quizSelection = document.getElementById('quiz-selection');
+        const quizInterface = document.getElementById('quiz-interface');
+        const resultsModal = document.getElementById('results-modal');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Start Quiz Function
+        function startQuiz(quizType) {
+            currentQuiz = quizData[quizType];
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            quizStartTime = new Date();
+            
+            // Initialize timer
+            timeRemaining = currentQuiz.timeLimit * 60; // Convert to seconds
+            
+            // Show quiz interface
+            quizSelection.classList.add('hidden');
+            quizInterface.classList.remove('hidden');
+            
+            // Update quiz header
+            document.getElementById('quiz-title').textContent = currentQuiz.title;
+            document.getElementById('quiz-description').textContent = currentQuiz.description;
+            
+            // Load first question
+            loadQuestion();
+            
+            // Start timer
+            startTimer();
+        }
+
+        // Load Question Function
+        function loadQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const totalQuestions = currentQuiz.questions.length;
+            
+            // Update question counter and progress
+            document.getElementById('question-counter').textContent = `${currentQuestionIndex + 1} / ${totalQuestions}`;
+            const progressPercentage = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            document.getElementById('progress-percentage').textContent = `${Math.round(progressPercentage)}%`;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Update question text
+            document.getElementById('question-text').textContent = question.question;
+            
+            // Update answer options
+            const answerOptions = document.getElementById('answer-options');
+            answerOptions.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionLetter = String.fromCharCode(97 + index); // a, b, c, d
+                const isSelected = userAnswers[currentQuestionIndex] === index;
+                
+                const optionElement = document.createElement('label');
+                optionElement.className = `flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-surface-secondary transition-colors duration-200 answer-option ${isSelected ? 'bg-primary-50 border-primary-300' : ''}`;
+                
+                optionElement.innerHTML = `
+                    <input type="radio" name="answer" value="${index}" class="sr-only" ${isSelected ? 'checked' : ''}>
+                    <div class="w-6 h-6 border-2 ${isSelected ? 'border-primary-600' : 'border-border'} rounded-full mr-4 flex items-center justify-center option-indicator">
+                        <div class="w-3 h-3 bg-primary-600 rounded-full ${isSelected ? '' : 'hidden'} option-selected"></div>
+                    </div>
+                    <span class="text-text-primary font-medium">${option}</span>
+                `;
+                
+                optionElement.addEventListener('click', () => selectAnswer(index));
+                answerOptions.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Select Answer Function
+        function selectAnswer(answerIndex) {
+            userAnswers[currentQuestionIndex] = answerIndex;
+            
+            // Update visual selection
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach((option, index) => {
+                const indicator = option.querySelector('.option-indicator');
+                const selected = option.querySelector('.option-selected');
+                
+                if (index === answerIndex) {
+                    option.classList.add('bg-primary-50', 'border-primary-300');
+                    indicator.classList.add('border-primary-600');
+                    indicator.classList.remove('border-border');
+                    selected.classList.remove('hidden');
+                } else {
+                    option.classList.remove('bg-primary-50', 'border-primary-300');
+                    indicator.classList.remove('border-primary-600');
+                    indicator.classList.add('border-border');
+                    selected.classList.add('hidden');
+                }
+            });
+            
+            updateNavigationButtons();
+        }
+
+        // Update Navigation Buttons
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Previous button
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Next/Submit button logic
+            const isLastQuestion = currentQuestionIndex === currentQuiz.questions.length - 1;
+            
+            if (isLastQuestion) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        // Navigation Event Listeners
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        });
+
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            submitQuiz();
+        });
+
+        // Timer Functions
+        function startTimer() {
+            updateTimerDisplay();
+            quizTimer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(quizTimer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const timerDisplay = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer').textContent = timerDisplay;
+            
+            // Change color when time is running low
+            const timerElement = document.getElementById('timer');
+            if (timeRemaining <= 60) {
+                timerElement.classList.add('text-red-600');
+                timerElement.classList.remove('text-primary-600');
+            } else if (timeRemaining <= 300) {
+                timerElement.classList.add('text-secondary-600');
+                timerElement.classList.remove('text-primary-600');
+            }
+        }
+
+        // Submit Quiz Function
+        function submitQuiz() {
+            clearInterval(quizTimer);
+            
+            // Calculate results
+            const results = calculateResults();
+            
+            // send to backend (non-blocking)
+            if (typeof axios !== 'undefined') {
+                console.log('Sending quiz results to backend:', results);
+                axios.post('http://localhost:3000/api/quiz-results', {
+                    quizTitle: results.quizTitle,
+                    correctAnswers: results.correctAnswers,
+                    totalQuestions: results.totalQuestions,
+                    scorePercentage: results.scorePercentage,
+                    timeTaken: results.timeTaken,
+                    completedAt: results.completedAt
+                })
+                .then(response => {
+                    console.log('✓ Quiz results saved to database:', response.data);
+                })
+                .catch((error) => {
+                    console.error('✗ Failed to save quiz result:', error);
+                    if (error.response) {
+                        console.error('Error details:', error.response.data);
+                    }
+                });
+            } else {
+                console.warn('Axios not loaded; cannot send quiz results to backend.');
+            }
+            
+            // Save results to localStorage
+            saveQuizResults(results);
+            
+            // Show results modal
+            showResults(results);
+        }
+
+        // Calculate Results Function
+        function calculateResults() {
+            let correctAnswers = 0;
+            const totalQuestions = currentQuiz.questions.length;
+            const quizEndTime = new Date();
+            const timeTaken = Math.floor((quizEndTime - quizStartTime) / 1000);
+            
+            const questionResults = currentQuiz.questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                if (isCorrect) correctAnswers++;
+                
+                return {
+                    question: question.question,
+                    userAnswer: userAnswer !== undefined ? question.options[userAnswer] : 'Not answered',
+                    correctAnswer: question.options[question.correct],
+                    isCorrect: isCorrect,
+                    explanation: question.explanation
+                };
+            });
+            
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+            
+            return {
+                quizTitle: currentQuiz.title,
+                scorePercentage: scorePercentage,
+                correctAnswers: correctAnswers,
+                totalQuestions: totalQuestions,
+                timeTaken: timeTaken,
+                questionResults: questionResults,
+                completedAt: new Date().toISOString()
+            };
+        }
+
+        // Save Quiz Results Function
+        function saveQuizResults(results) {
+            let savedResults = JSON.parse(localStorage.getItem('quiz_results') || '[]');
+            savedResults.unshift(results); // Add to beginning of array
+            
+            // Keep only last 10 results
+            if (savedResults.length > 10) {
+                savedResults = savedResults.slice(0, 10);
+            }
+            
+            localStorage.setItem('quiz_results', JSON.stringify(savedResults));
+        }
+
+        // Show Results Function
+        function showResults(results) {
+            // Update score display
+            document.getElementById('final-score').textContent = `${results.scorePercentage}%`;
+            document.getElementById('score-details').textContent = `You got ${results.correctAnswers} out of ${results.totalQuestions} questions correct`;
+            document.getElementById('correct-count').textContent = results.correctAnswers;
+            document.getElementById('incorrect-count').textContent = results.totalQuestions - results.correctAnswers;
+            
+            // Format time taken
+            const minutes = Math.floor(results.timeTaken / 60);
+            const seconds = results.timeTaken % 60;
+            document.getElementById('time-taken').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Show badge notification if score is high
+            const badgeNotification = document.getElementById('badge-notification');
+            if (results.scorePercentage >= 80) {
+                badgeNotification.classList.remove('hidden');
+                let badgeName = 'Constitution Scholar';
+                if (results.scorePercentage >= 95) badgeName = 'Constitutional Expert';
+                else if (results.scorePercentage >= 90) badgeName = 'Constitution Master';
+                document.getElementById('badge-name').textContent = badgeName;
+            }
+            
+            // Populate question review
+            const questionReview = document.getElementById('question-review');
+            questionReview.innerHTML = '';
+            
+            results.questionResults.forEach((result, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `p-4 border border-border rounded-lg ${result.isCorrect ? 'bg-accent-50 border-accent-200' : 'bg-red-50 border-red-200'}`;
+                
+                reviewItem.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="w-6 h-6 rounded-full flex items-center justify-center mr-3 mt-1 ${result.isCorrect ? 'bg-accent-600' : 'bg-red-600'}">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                ${result.isCorrect ? 
+                                    '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>' : 
+                                    '<path d="M6 18L18 6M6 6l12 12"/>'
+                                }
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-text-primary mb-1">Question ${index + 1}</p>
+                            <p class="text-sm text-text-secondary mb-2">${result.question}</p>
+                            <div class="text-sm">
+                                <p class="mb-1">
+                                    <span class="font-medium">Your answer:</span> 
+                                    <span class="${result.isCorrect ? 'text-accent-600' : 'text-red-600'}">${result.userAnswer}</span>
+                                </p>
+                                ${!result.isCorrect ? `<p><span class="font-medium">Correct answer:</span> <span class="text-accent-600">${result.correctAnswer}</span></p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                questionReview.appendChild(reviewItem);
+            });
+            
+            // Show modal
+            resultsModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Results Modal Functions
+        function retakeQuiz() {
+            closeResults();
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            quizStartTime = new Date();
+            timeRemaining = currentQuiz.timeLimit * 60;
+            
+            // Reload first question and restart timer
+            loadQuestion();
+            startTimer();
+        }
+
+        function viewExplanations() {
+            // This would typically open a detailed explanations page
+            alert('Detailed explanations feature coming soon!');
+        }
+
+        function closeResults() {
+            resultsModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            
+            // Return to quiz selection
+            quizInterface.classList.add('hidden');
+            quizSelection.classList.remove('hidden');
+            
+            // Update recent results
+            loadRecentResults();
+        }
+
+        // Load Recent Results Function
+        function loadRecentResults() {
+            const savedResults = JSON.parse(localStorage.getItem('quiz_results') || '[]');
+            const recentResults = document.getElementById('recent-results');
+            
+            if (savedResults.length === 0) {
+                recentResults.innerHTML = '<p class="text-text-secondary text-center py-4">No quiz results yet. Take your first quiz!</p>';
+                return;
+            }
+            
+            recentResults.innerHTML = '';
+            
+            savedResults.slice(0, 3).forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'flex items-center justify-between p-4 bg-surface-secondary rounded-lg';
+                
+                const timeAgo = getTimeAgo(new Date(result.completedAt));
+                const iconColor = result.scorePercentage >= 80 ? 'accent' : result.scorePercentage >= 60 ? 'secondary' : 'red';
+                
+                resultItem.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-${iconColor}-100 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-5 h-5 text-${iconColor}-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium text-text-primary">${result.quizTitle}</p>
+                            <p class="text-sm text-text-secondary">Completed ${timeAgo}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-lg font-bold text-${iconColor}-600">${result.scorePercentage}%</p>
+                        <p class="text-sm text-text-secondary">${result.correctAnswers}/${result.totalQuestions} correct</p>
+                    </div>
+                `;
+                
+                recentResults.appendChild(resultItem);
+            });
+        }
+
+        // Helper function to get time ago
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+            return `${Math.floor(diffInSeconds / 86400)} days ago`;
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load recent results
+            loadRecentResults();
+            
+            // Check for user session
+            const session = localStorage.getItem('constitutionlearn_session') || 
+                           sessionStorage.getItem('constitutionlearn_session');
+            
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    if (sessionData.user) {
+                        document.getElementById('user-name').textContent = sessionData.user.username || 'User';
+                    }
+                } catch (e) {
+                    console.error('Invalid session data');
+                }
+            }
+        });
+
+        // Prevent accidental page refresh during quiz
+        window.addEventListener('beforeunload', function(e) {
+            if (!quizInterface.classList.contains('hidden')) {
+                e.preventDefault();
+                e.returnValue = '';
+                return 'You have an active quiz. Are you sure you want to leave?';
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

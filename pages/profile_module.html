@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Module - ConstitutionLearn</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fconstituti1589back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="constitution-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="1" fill="currentColor"/>
+                    <rect x="5" y="5" width="10" height="1" fill="currentColor"/>
+                    <rect x="3" y="8" width="14" height="1" fill="currentColor"/>
+                    <rect x="7" y="11" width="6" height="1" fill="currentColor"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#constitution-pattern)" class="text-primary-600"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="relative bg-white shadow-sm border-b border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="inline-flex items-center">
+                            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                    <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="white"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-text-primary">ConstitutionLearn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="dashboard.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Dashboard
+                    </a>
+                    <a href="quiz_module.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Quiz
+                    </a>
+                    <a href="learning_module.html" class="text-text-secondary hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Learning
+                    </a>
+                    <a href="profile_module.html" class="text-primary-600 bg-primary-50 px-3 py-2 rounded-md text-sm font-medium">
+                        Profile
+                    </a>
+                </nav>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="User avatar" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        </button>
+                        <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="profile_module.html" class="block px-4 py-2 text-sm text-text-primary hover:bg-gray-100">Profile</a>
+                            <a href="dashboard.html" class="block px-4 py-2 text-sm text-text-primary hover:bg-gray-100">Settings</a>
+                            <a href="login.html" class="block px-4 py-2 text-sm text-text-primary hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" title="Open mobile menu" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-text-secondary hover:text-primary-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-border-light">
+                <a href="dashboard.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                <a href="quiz_module.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="learning_module.html" class="text-text-secondary hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">Learning</a>
+                <a href="profile_module.html" class="text-primary-600 bg-primary-50 block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-text-primary mb-2">My Profile</h1>
+            <p class="text-text-secondary">Manage your account, track progress, and view achievements</p>
+        </div>
+
+        <!-- Profile Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column - User Info & Settings -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- User Information Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-text-primary">Profile Information</h2>
+                        <button id="edit-profile-btn" class="text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors duration-200">
+                            Edit
+                        </button>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <div class="relative inline-block">
+                            <img id="profile-avatar" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-primary-100" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile picture" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="absolute bottom-0 right-0 bg-accent-500 rounded-full p-2">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 id="user-name" class="text-xl font-semibold text-text-primary mt-4">Rajesh Kumar</h3>
+                        <p id="user-type" class="text-text-secondary">Student</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-text-secondary mb-1">Email</label>
+                            <p id="user-email" class="text-text-primary">student@example.com</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-text-secondary mb-1">Member Since</label>
+                            <p id="member-since" class="text-text-primary">September 2025</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-text-secondary mb-1">Current Level</label>
+                            <div class="flex items-center">
+                                <span id="user-level" class="text-primary-600 font-semibold mr-2">Level 5</span>
+                                <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                    <div id="level-progress" class="bg-primary-600 h-2 rounded-full level-progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <h2 class="text-xl font-semibold text-text-primary mb-4">Quick Stats</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-text-secondary">Total Points</span>
+                            </div>
+                            <span id="total-points" class="text-xl font-bold text-primary-600">2,450</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <span class="text-text-secondary">Quizzes Completed</span>
+                            </div>
+                            <span id="quizzes-completed" class="text-xl font-bold text-accent-600">23</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-secondary-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-text-secondary">Learning Streak</span>
+                            </div>
+                            <span id="learning-streak" class="text-xl font-bold text-secondary-600">7 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Progress & Achievements -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Progress Overview -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <h2 class="text-xl font-semibold text-text-primary mb-6">Learning Progress</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-semibold text-primary-800">Constitutional Articles</h3>
+                                <span class="text-2xl font-bold text-primary-600">78%</span>
+                            </div>
+                            <div class="w-full bg-primary-200 rounded-full h-2">
+                                <div class="bg-primary-600 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                            <p class="text-sm text-primary-700 mt-2">28 of 36 articles mastered</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-accent-50 to-accent-100 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-semibold text-accent-800">Fundamental Rights</h3>
+                                <span class="text-2xl font-bold text-accent-600">92%</span>
+                            </div>
+                            <div class="w-full bg-accent-200 rounded-full h-2">
+                                <div class="bg-accent-600 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                            <p class="text-sm text-accent-700 mt-2">11 of 12 rights understood</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-secondary-50 to-secondary-100 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-semibold text-secondary-800">Civic Duties</h3>
+                                <span class="text-2xl font-bold text-secondary-600">65%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-secondary-600 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                            <p class="text-sm text-secondary-700 mt-2">13 of 20 duties learned</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-semibold text-purple-800">Quiz Performance</h3>
+                                <span class="text-2xl font-bold text-purple-600">85%</span>
+                            </div>
+                            <div class="w-full bg-purple-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <p class="text-sm text-purple-700 mt-2">Average score across all quizzes</p>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Position -->
+                    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-yellow-800">Leaderboard Rank</h3>
+                                    <p class="text-sm text-yellow-700">You're doing great!</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-3xl font-bold text-yellow-600">#12</span>
+                                <p class="text-sm text-yellow-700">out of 1,247 students</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement Gallery -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-text-primary">Achievements</h2>
+                        <span class="text-sm text-text-secondary">8 of 15 earned</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Earned Badges -->
+                        <div class="text-center p-4 bg-accent-50 rounded-xl border-2 border-accent-200">
+                            <div class="w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-accent-800">First Quiz</h3>
+                            <p class="text-xs text-accent-600">Completed first quiz</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-primary-50 rounded-xl border-2 border-primary-200">
+                            <div class="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-primary-800">Rising Star</h3>
+                            <p class="text-xs text-primary-600">Reached Level 5</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-secondary-50 rounded-xl border-2 border-secondary-200">
+                            <div class="w-16 h-16 bg-secondary-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-secondary-800">Scholar</h3>
+                            <p class="text-xs text-secondary-600">10 perfect scores</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-purple-50 rounded-xl border-2 border-purple-200">
+                            <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-purple-800">Consistent</h3>
+                            <p class="text-xs text-purple-600">7-day streak</p>
+                        </div>
+                        
+                        <!-- Locked Badges -->
+                        <div class="text-center p-4 bg-gray-50 rounded-xl border-2 border-gray-200 opacity-60">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-600">Expert</h3>
+                            <p class="text-xs text-gray-500">Complete 50 quizzes</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-gray-50 rounded-xl border-2 border-gray-200 opacity-60">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-600">Master</h3>
+                            <p class="text-xs text-gray-500">Reach Level 10</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-gray-50 rounded-xl border-2 border-gray-200 opacity-60">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-600">Champion</h3>
+                            <p class="text-xs text-gray-500">Top 10 leaderboard</p>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-gray-50 rounded-xl border-2 border-gray-200 opacity-60">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-600">Legend</h3>
+                            <p class="text-xs text-gray-500">30-day streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity History -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <h2 class="text-xl font-semibold text-text-primary mb-6">Recent Activity</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 bg-accent-50 rounded-lg">
+                            <div class="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-accent-800">Quiz Completed</h3>
+                                <p class="text-sm text-accent-600">Fundamental Rights Quiz - Score: 95%</p>
+                                <p class="text-xs text-accent-500">2 hours ago</p>
+                            </div>
+                            <div class="text-accent-600 font-semibold">+150 pts</div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-primary-50 rounded-lg">
+                            <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-primary-800">Badge Earned</h3>
+                                <p class="text-sm text-primary-600">Rising Star - Reached Level 5</p>
+                                <p class="text-xs text-primary-500">1 day ago</p>
+                            </div>
+                            <div class="text-primary-600 font-semibold">Badge</div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-secondary-50 rounded-lg">
+                            <div class="w-10 h-10 bg-secondary-500 rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-secondary-800">Learning Session</h3>
+                                <p class="text-sm text-secondary-600">Studied Constitutional Articles flashcards</p>
+                                <p class="text-xs text-secondary-500">2 days ago</p>
+                            </div>
+                            <div class="text-secondary-600 font-semibold">+50 pts</div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                            <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-purple-800">AI Interaction</h3>
+                                <p class="text-sm text-purple-600">Asked about Article 21 - Right to Life</p>
+                                <p class="text-xs text-purple-500">3 days ago</p>
+                            </div>
+                            <div class="text-purple-600 font-semibold">+25 pts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <button class="text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-200">
+                            View All Activity
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+                    <h2 class="text-xl font-semibold text-text-primary mb-6">Account Settings</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <h3 class="font-semibold text-text-primary">Change Password</h3>
+                                <p class="text-sm text-text-secondary">Update your account password</p>
+                            </div>
+                            <button class="text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-200">
+                                Change
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <h3 class="font-semibold text-text-primary">Email Notifications</h3>
+                                <p class="text-sm text-text-secondary">Manage your notification preferences</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked title="Enable email notifications" />
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <h3 class="font-semibold text-text-primary">Export Data</h3>
+                                <p class="text-sm text-text-secondary">Download your learning data</p>
+                            </div>
+                            <button class="text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-200">
+                                Export
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
+                            <div>
+                                <h3 class="font-semibold text-red-800">Delete Account</h3>
+                                <p class="text-sm text-red-600">Permanently delete your account</p>
+                            </div>
+                            <button class="text-red-600 hover:text-red-700 font-medium text-sm transition-colors duration-200">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Profile Modal -->
+    <div id="edit-profile-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-lg max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-text-primary">Edit Profile</h2>
+                <button id="close-modal" class="text-text-secondary hover:text-text-primary" title="Close modal">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="edit-profile-form" class="space-y-4">
+                <div>
+                    <label for="edit-name" class="block text-sm font-medium text-text-primary mb-2">Full Name</label>
+                    <input type="text" id="edit-name" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" value="Rajesh Kumar" />
+                </div>
+                
+                <div>
+                    <label for="edit-email" class="block text-sm font-medium text-text-primary mb-2">Email</label>
+                    <input type="email" id="edit-email" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" value="student@example.com" />
+                </div>
+                
+                <div>
+                    <label for="edit-bio" class="block text-sm font-medium text-text-primary mb-2">Bio</label>
+                    <textarea id="edit-bio" rows="3" class="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="Tell us about yourself..."></textarea>
+                </div>
+                
+                <div class="flex space-x-4 pt-4">
+                    <button type="submit" class="flex-1 bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        Save Changes
+                    </button>
+                    <button type="button" id="cancel-edit" class="flex-1 bg-gray-200 text-text-primary py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-200">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative bg-white border-t border-border-light mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-text-tertiary text-sm">
+                    © 2025 ConstitutionLearn. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userMenu = document.getElementById('user-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const editProfileBtn = document.getElementById('edit-profile-btn');
+        const editProfileModal = document.getElementById('edit-profile-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelEdit = document.getElementById('cancel-edit');
+        const editProfileForm = document.getElementById('edit-profile-form');
+
+        // Mock user data
+        const userData = {
+            name: 'Rajesh Kumar',
+            email: 'student@example.com',
+            userType: 'Student',
+            memberSince: 'September 2025',
+            level: 5,
+            levelProgress: 65,
+            totalPoints: 2450,
+            quizzesCompleted: 23,
+            learningStreak: 7,
+            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        };
+
+        // Initialize page
+        function initializePage() {
+            loadUserData();
+            checkAuthStatus();
+        }
+
+        // Load user data from session or use mock data
+        function loadUserData() {
+            const session = localStorage.getItem('constitutionlearn_session') || 
+                           sessionStorage.getItem('constitutionlearn_session');
+            
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    if (sessionData.user) {
+                        // Update UI with session data
+                        document.getElementById('user-name').textContent = sessionData.user.username || userData.name;
+                        document.getElementById('user-email').textContent = sessionData.user.email || userData.email;
+                        document.getElementById('user-type').textContent = sessionData.user.role || userData.userType;
+                        
+                        // Update form fields
+                        document.getElementById('edit-name').value = sessionData.user.username || userData.name;
+                        document.getElementById('edit-email').value = sessionData.user.email || userData.email;
+                    }
+                } catch (e) {
+                    console.error('Error parsing session data:', e);
+                }
+            }
+            
+            // Update other UI elements with mock data
+            document.getElementById('member-since').textContent = userData.memberSince;
+            document.getElementById('user-level').textContent = `Level ${userData.level}`;
+            document.getElementById('level-progress').style.width = `${userData.levelProgress}%`;
+            document.getElementById('total-points').textContent = userData.totalPoints.toLocaleString();
+            document.getElementById('quizzes-completed').textContent = userData.quizzesCompleted;
+            document.getElementById('learning-streak').textContent = `${userData.learningStreak} days`;
+        }
+
+        // Check authentication status
+        function checkAuthStatus() {
+            const session = localStorage.getItem('constitutionlearn_session') || 
+                           sessionStorage.getItem('constitutionlearn_session');
+            
+            if (!session) {
+                // No session found, redirect to login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const sessionData = JSON.parse(session);
+                if (!sessionData.user) {
+                    throw new Error('Invalid session data');
+                }
+            } catch (e) {
+                // Invalid session, clear and redirect
+                localStorage.removeItem('constitutionlearn_session');
+                sessionStorage.removeItem('constitutionlearn_session');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // User menu toggle
+        userMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userMenu.classList.toggle('hidden');
+        });
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menus when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Edit profile modal
+        editProfileBtn.addEventListener('click', function() {
+            editProfileModal.classList.remove('hidden');
+            editProfileModal.classList.add('fade-in-scale');
+        });
+
+        closeModal.addEventListener('click', function() {
+            editProfileModal.classList.add('hidden');
+        });
+
+        cancelEdit.addEventListener('click', function() {
+            editProfileModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        editProfileModal.addEventListener('click', function(e) {
+            if (e.target === editProfileModal) {
+                editProfileModal.classList.add('hidden');
+            }
+        });
+
+        // Edit profile form submission
+        editProfileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newName = document.getElementById('edit-name').value.trim();
+            const newEmail = document.getElementById('edit-email').value.trim();
+            const newBio = document.getElementById('edit-bio').value.trim();
+            
+            if (!newName || !newEmail) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(newEmail)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Update UI
+            document.getElementById('user-name').textContent = newName;
+            document.getElementById('user-email').textContent = newEmail;
+            
+            // Update session data
+            const session = localStorage.getItem('constitutionlearn_session') || 
+                           sessionStorage.getItem('constitutionlearn_session');
+            
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    sessionData.user.username = newName;
+                    sessionData.user.email = newEmail;
+                    sessionData.user.bio = newBio;
+                    
+                    if (localStorage.getItem('constitutionlearn_session')) {
+                        localStorage.setItem('constitutionlearn_session', JSON.stringify(sessionData));
+                    } else {
+                        sessionStorage.setItem('constitutionlearn_session', JSON.stringify(sessionData));
+                    }
+                } catch (e) {
+                    console.error('Error updating session data:', e);
+                }
+            }
+            
+            // Close modal
+            editProfileModal.classList.add('hidden');
+            
+            // Show success message
+            showNotification('Profile updated successfully!', 'success');
+        });
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
+            
+            if (type === 'success') {
+                notification.classList.add('bg-accent-500', 'text-white');
+            } else if (type === 'error') {
+                notification.classList.add('bg-red-500', 'text-white');
+            } else {
+                notification.classList.add('bg-primary-500', 'text-white');
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem('constitutionlearn_session');
+            sessionStorage.removeItem('constitutionlearn_session');
+            window.location.href = 'login.html';
+        }
+
+        // Add logout event listeners
+        document.querySelectorAll('a[href="login.html"]').forEach(link => {
+            if (link.textContent.includes('Sign out')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+
+        // Initialize page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializePage);
+
+        // Animate progress bars on page load
+        window.addEventListener('load', function() {
+            const progressBars = document.querySelectorAll('[style*="width:"]');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease-in-out';
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Add hover effects to achievement badges
+        document.querySelectorAll('.bg-accent-50, .bg-primary-50, .bg-secondary-50, .bg-purple-50').forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'transform 0.2s ease-in-out';
+            });
+            
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
