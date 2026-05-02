@@ -1,11 +1,10 @@
-# ConstitutionLearn 🇮🇳
+const apiKey = "YOUR_GEMINI_API_KEY_HERE"; # ConstitutionLearn 🇮🇳
 
-An interactive educational platform for learning about the Indian Constitution through AI-powered chatbots, quizzes, and comprehensive article browsing.
+An interactive educational platform for learning about the Indian Constitution through quizzes, study modules, and comprehensive article browsing.
 
 ## 🚀 Features
 
 - **Indian Constitution Dataset** - Complete access to all 454 articles from the Indian Constitution
-- **AI Chatbot** - Interactive tutor powered by constitutional knowledge
 - **Constitution Browser** - Search, filter, and explore articles with ease
 - **Quiz Module** - Test your constitutional knowledge
 - **Learning Module** - Study with interactive flashcards
@@ -49,7 +48,6 @@ ConstitutionLearn/
 │   ├── registration.html     # User registration
 │   ├── dashboard.html        # Main dashboard
 │   ├── constitution.html     # Article browser (NEW!)
-│   ├── chatbot.html          # AI tutor chatbot (ENHANCED!)
 │   ├── quiz_module.html      # Quiz system
 │   ├── learning_module.html  # Study materials
 │   └── profile_module.html   # User profile
@@ -58,7 +56,6 @@ ConstitutionLearn/
 │   └── routes/               # API routes
 ├── data/                     # Data directory
 ├── index.html                # Landing page
-├── test-dataset.html         # Dataset testing page
 ├── CONSTITUTION_DATASET.md   # Dataset documentation
 ├── ARCHITECTURE.md           # System architecture
 └── package.json              # Dependencies
@@ -71,11 +68,9 @@ ConstitutionLearn/
 - **Smart Search**: Find articles by keyword or number
 - **Topic Filtering**: Browse by Fundamental Rights, Directive Principles, etc.
 - **Offline Mode**: LocalStorage caching for offline access
-- **AI Integration**: Enhanced chatbot with constitutional context
 
 ### Quick Access
 - **Browse Articles**: Open `pages/constitution.html`
-- **Test Integration**: Open `test-dataset.html`
 - **Documentation**: See `CONSTITUTION_DATASET.md`
 - **Architecture**: See `ARCHITECTURE.md`
 ## 📊 Dataset
@@ -104,20 +99,6 @@ The dataset includes:
 3. Click topic badges to filter by category
 4. Jump to specific article numbers
 5. Get random articles for learning
-
-### Chat with AI Tutor
-1. Open `pages/chatbot.html`
-2. Ask questions like:
-   - "Tell me about Article 21"
-   - "What are Fundamental Rights?"
-   - "Explain the Preamble"
-3. Get AI-powered answers with article references
-
-### Test the Integration
-1. Open `test-dataset.html`
-2. View loading statistics
-3. Test search functionality
-4. Verify cache operations
 
 ## 🔧 Technical Details
 
@@ -148,7 +129,6 @@ const random = constitutionManager.getRandomArticle();
 - **Landing**: `index.html` - Welcome page
 - **Dashboard**: `pages/dashboard.html` - Main hub
 - **Constitution Browser**: `pages/constitution.html` - Browse all articles
-- **AI Chatbot**: `pages/chatbot.html` - Interactive tutor
 - **Quiz**: `pages/quiz_module.html` - Test knowledge
 - **Learning**: `pages/learning_module.html` - Study materials
 

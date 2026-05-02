@@ -71,8 +71,7 @@
 
         <!-- Navigation -->
         <nav class="bg-white rounded-lg shadow-md p-4 mb-6">
-            <a href="index.html" class="text-blue-600 hover:text-blue-800 mr-4">← Back to Home</a>
-            <a href="pages/chatbot.html" class="text-blue-600 hover:text-blue-800">Chat with Constitution Bot →</a>
+            <a href="dashboard.html" class="text-blue-600 hover:text-blue-800 mr-4">← Back to Dashboard</a>
         </nav>
 
         <!-- Search and Filter Section -->
@@ -150,6 +149,38 @@
         let currentPage = 1;
         const articlesPerPage = 10;
 
+        function readBrowserProgress() {
+            try {
+                return JSON.parse(localStorage.getItem('constitution_browser_progress')) || {
+                    viewedArticleIds: [],
+                    totalViews: 0,
+                    lastViewedAt: null
+                };
+            } catch {
+                return {
+                    viewedArticleIds: [],
+                    totalViews: 0,
+                    lastViewedAt: null
+                };
+            }
+        }
+
+        function trackViewedArticles(articles) {
+            const progress = readBrowserProgress();
+            const idSet = new Set(progress.viewedArticleIds || []);
+
+            articles.forEach(article => {
+                if (article?.id) {
+                    idSet.add(String(article.id));
+                    progress.totalViews = (progress.totalViews || 0) + 1;
+                }
+            });
+
+            progress.viewedArticleIds = Array.from(idSet);
+            progress.lastViewedAt = new Date().toISOString();
+            localStorage.setItem('constitution_browser_progress', JSON.stringify(progress));
+        }
+
         // Initialize the page
         async function initializePage() {
             try {
@@ -222,6 +253,9 @@
             container.innerHTML = paginatedArticles.map(article => 
                 constitutionManager.formatArticleHTML(article)
             ).join('');
+
+            // Treat rendered articles as read activity for progress/achievements.
+            trackViewedArticles(paginatedArticles);
             
             // Update count
             document.getElementById('resultsCount').textContent = 

@@ -157,16 +157,16 @@
                     </div>
                 </button>
 
-                <button id="ask-ai-btn" class="bg-white rounded-xl p-4 shadow-sm border border-border-light hover:shadow-md transition-all duration-200 text-left group">
+                <button id="browse-constitution-btn" class="bg-white rounded-xl p-4 shadow-sm border border-border-light hover:shadow-md transition-all duration-200 text-left group">
                     <div class="flex items-center">
                         <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-primary-200 transition-colors duration-200">
                             <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="font-semibold text-text-primary">Ask AI</div>
-                            <div class="text-sm text-text-secondary">Get instant help</div>
+                            <div class="font-semibold text-text-primary">Browse Constitution</div>
+                            <div class="text-sm text-text-secondary">Explore all articles</div>
                         </div>
                     </div>
                 </button>
@@ -202,7 +202,7 @@
                         <div class="text-sm text-text-secondary">
                             <span class="font-semibold text-secondary-600">+50 points</span> last quiz
                         </div>
-                        <a href="quiz_module.html" class="bg-secondary-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-secondary-700 transition-colors duration-200">
+                        <a href="quiz_module.html" style="background-color:#D97706; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; display:inline-block; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#B45309'" onmouseout="this.style.backgroundColor='#D97706'">
                             Start Quiz
                         </a>
                     </div>
@@ -233,40 +233,62 @@
                         <div class="text-sm text-text-secondary">
                             <span class="font-semibold text-accent-600">5 cards</span> due today
                         </div>
-                        <a href="learning_module.html" class="bg-accent-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-700 transition-colors duration-200">
+                        <a href="learning_module.html" style="background-color:#059669; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; display:inline-block; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#047857'" onmouseout="this.style.backgroundColor='#059669'">
                             Study Now
                         </a>
                     </div>
                 </div>
 
                 
-                <!-- AI Chatbot Module -->
+                <!-- Constitution Browser Module -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light hover:shadow-md transition-all duration-200 card-hover">
                     <div class="flex items-center justify-between mb-4">
                         <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
                             <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
                         </div>
-                        <span class="text-xs font-semibold text-primary-600 bg-primary-100 px-2 py-1 rounded-full">AI Tutor</span>
+                        <span class="text-xs font-semibold text-primary-600 bg-primary-100 px-2 py-1 rounded-full">Knowledge Base</span>
                     </div>
-                    <h4 class="text-lg font-bold text-text-primary mb-2">AI Chatbot</h4>
-                    <p class="text-text-secondary text-sm mb-4">Get instant answers about constitutional topics with AI-powered assistance.</p>
+                    <h4 class="text-lg font-bold text-text-primary mb-2">Constitution Browser</h4>
+                    <p class="text-text-secondary text-sm mb-4">Explore constitutional topics by article number, keyword, and curated topics.</p>
                     <div class="mb-4">
                         <div class="flex justify-between text-sm text-text-secondary mb-1">
-                            <span>Questions Asked</span>
-                            <span>12 this week</span>
+                            <span>Articles Available</span>
+                            <span>454 total</span>
                         </div>
                         <div class="w-full bg-border-light rounded-full h-2">
-                            <div class="bg-primary-500 h-2 rounded-full w-40-percent"></div>
+                            <div class="bg-primary-500 h-2 rounded-full w-full"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="text-sm text-text-secondary">
-                            <span class="font-semibold text-primary-600">24/7</span> available
+                            <span class="font-semibold text-primary-600">Search</span> by article or topic
                         </div>
-                        <a href="chatbot.html" class="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary-700 transition-colors duration-200">
-                            Chat Now
+                        <a href="constitution.html" style="background-color:#2563EB; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; display:inline-block; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#1D4ED8'" onmouseout="this.style.backgroundColor='#2563EB'">
+                            Browse Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mini Games Module -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light hover:shadow-md transition-all duration-200 card-hover">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4h2m-1 0v2m-4 7h8m-9 4h10m3-7h-1.586a1 1 0 01-.707-.293l-2.828-2.828a1 1 0 00-.707-.293H6.414a1 1 0 00-.707.293L2.879 10.707A1 1 0 002.586 11H1"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">New</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-text-primary mb-2">Mini Games</h4>
+                    <p class="text-text-secondary text-sm mb-4">Play quick, fun challenges to reinforce constitutional concepts and civic duties.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-text-secondary">
+                            <span class="font-semibold text-emerald-600">2 games</span> live now
+                        </div>
+                        <a href="mini_games.html" style="background-color:#059669; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; display:inline-block; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#047857'" onmouseout="this.style.backgroundColor='#059669'">
+                            Start Playing
                         </a>
                     </div>
                 </div>
@@ -296,179 +318,36 @@
                         <div class="text-sm text-text-secondary">
                             <span class="font-semibold text-purple-600">2 new</span> achievements
                         </div>
-                        <a href="profile_module.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors duration-200">
+                        <a href="profile_module.html" style="background-color:#9333EA; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; text-decoration:none; display:inline-block; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#7E22CE'" onmouseout="this.style.backgroundColor='#9333EA'">
                             View Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Samvidhan AI Chatbot Module -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light hover:shadow-md transition-all duration-200 card-hover md:col-span-2 lg:col-span-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-1 rounded-full">New Feature</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-text-primary mb-2">Samvidhan AI Chatbot</h4>
+                    <p class="text-text-secondary text-sm mb-4">An intelligent legal and civic guide to help answer your queries about the Constitution of India and Civic Duties interactively.</p>
+                    <div class="flex items-center justify-between mt-4 border-t border-border-light pt-4">
+                        <div class="text-sm text-text-secondary">
+                             <span class="font-semibold text-orange-600"></span>
+                        </div>
+                        <a href="https://gemini.google.com/share/1110c3245874" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-200" style="background-color: #ea580c; color: #ffffff;">
+                            Ask Samvidhan AI
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Progress Overview -->
-        <section class="mb-8">
-            <h3 class="text-xl font-bold text-text-primary mb-6">Progress Overview</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Constitutional Articles -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="font-semibold text-text-primary">Constitutional Articles</h4>
-                        <div class="w-8 h-8 bg-secondary-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-secondary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between text-sm text-text-secondary mb-2">
-                            <span>Mastered</span>
-                            <span class="font-semibold">18/30</span>
-                        </div>
-                        <div class="w-full bg-border-light rounded-full h-3">
-                            <div class="bg-gradient-to-r from-secondary-500 to-secondary-600 h-3 rounded-full" style="width: 60%"></div>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary">60% of fundamental articles completed</p>
-                </div>
-
-                <!-- Quiz Performance -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="font-semibold text-text-primary">Quiz Performance</h4>
-                        <div class="w-8 h-8 bg-accent-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between text-sm text-text-secondary mb-2">
-                            <span>Average Score</span>
-                            <span class="font-semibold">85%</span>
-                        </div>
-                        <div class="w-full bg-border-light rounded-full h-3">
-                            <div class="bg-gradient-to-r from-accent-500 to-accent-600 h-3 rounded-full" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary">Excellent performance across all topics</p>
-                </div>
-
-                <!-- Achievement Progress -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-border-light">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="font-semibold text-text-primary">Achievements</h4>
-                        <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M5,16L3,5H1V3H4L6,14L7,18H20V16H8L5,16M19,7V9H17V7H19M17,11V13H19V11H17Z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex justify-between text-sm text-text-secondary mb-2">
-                            <span>Badges Earned</span>
-                            <span class="font-semibold">8/15</span>
-                        </div>
-                        <div class="w-full bg-border-light rounded-full h-3">
-                            <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-3 rounded-full" style="width: 53%"></div>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary">2 new badges available to unlock</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Recent Activity -->
-        <section>
-            <h3 class="text-xl font-bold text-text-primary mb-6">Recent Activity</h3>
-            <div class="bg-white rounded-2xl shadow-sm border border-border-light">
-                <div class="p-6">
-                    <div class="space-y-4">
-                        <!-- Activity Item 1 -->
-                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-secondary transition-colors duration-200">
-                            <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-sm font-semibold text-text-primary">Completed Quiz: Fundamental Rights</p>
-                                    <span class="text-xs text-text-tertiary">2 hours ago</span>
-                                </div>
-                                <p class="text-sm text-text-secondary">Scored 90% • Earned 75 points</p>
-                                <div class="flex items-center mt-2">
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent-100 text-accent-700">
-                                        +75 Points
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Activity Item 2 -->
-                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-secondary transition-colors duration-200">
-                            <div class="w-10 h-10 bg-secondary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-secondary-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M16,17H7V15H16M16,13H7V11H16M16,9H7V7H16M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-sm font-semibold text-text-primary">Unlocked Badge: Constitution Scholar</p>
-                                    <span class="text-xs text-text-tertiary">1 day ago</span>
-                                </div>
-                                <p class="text-sm text-text-secondary">Completed 15 constitutional articles</p>
-                                <div class="flex items-center mt-2">
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-secondary-100 text-secondary-700">
-                                        New Badge
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Activity Item 3 -->
-                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-secondary transition-colors duration-200">
-                            <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-sm font-semibold text-text-primary">Studied Article 21: Right to Life</p>
-                                    <span class="text-xs text-text-tertiary">2 days ago</span>
-                                </div>
-                                <p class="text-sm text-text-secondary">Reviewed 8 flashcards • 100% accuracy</p>
-                                <div class="flex items-center mt-2">
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
-                                        Perfect Score
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Activity Item 4 -->
-                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-surface-secondary transition-colors duration-200">
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-sm font-semibold text-text-primary">Reached Level 5</p>
-                                    <span class="text-xs text-text-tertiary">3 days ago</span>
-                                </div>
-                                <p class="text-sm text-text-secondary">Accumulated 1,000+ learning points</p>
-                                <div class="flex items-center mt-2">
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
-                                        Level Up
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -493,11 +372,12 @@
         const userStreak = document.getElementById('user-streak');
         const userPoints = document.getElementById('user-points');
         const userLevel = document.getElementById('user-level');
+        // Progress Overview section removed — no DOM elements to reference here.
 
         // Quick action buttons
         const continueQuizBtn = document.getElementById('continue-quiz-btn');
         const reviewFlashcardsBtn = document.getElementById('review-flashcards-btn');
-        const askAiBtn = document.getElementById('ask-ai-btn');
+        const browseConstitutionBtn = document.getElementById('browse-constitution-btn');
 
         // Mock user data
         const mockUserData = {
@@ -511,34 +391,7 @@
                 quizzes: { completed: 15, total: 20 },
                 articles: { mastered: 18, total: 30 },
                 badges: { earned: 8, total: 15 }
-            },
-            recentActivity: [
-                {
-                    type: 'quiz',
-                    title: 'Completed Quiz: Fundamental Rights',
-                    description: 'Scored 90% • Earned 75 points',
-                    timestamp: '2 hours ago',
-                    points: 75
-                },
-                {
-                    type: 'badge',
-                    title: 'Unlocked Badge: Constitution Scholar',
-                    description: 'Completed 15 constitutional articles',
-                    timestamp: '1 day ago'
-                },
-                {
-                    type: 'study',
-                    title: 'Studied Article 21: Right to Life',
-                    description: 'Reviewed 8 flashcards • 100% accuracy',
-                    timestamp: '2 days ago'
-                },
-                {
-                    type: 'level',
-                    title: 'Reached Level 5',
-                    description: 'Accumulated 1,000+ learning points',
-                    timestamp: '3 days ago'
-                }
-            ]
+            }
         };
 
         // Initialize dashboard
@@ -588,25 +441,110 @@
         }
 
         function loadUserStats() {
-            // Load stats from localStorage or use mock data
-            const savedStats = localStorage.getItem('constitutionlearn_stats');
-            let stats = mockUserData;
-            
-            if (savedStats) {
-                try {
-                    stats = { ...mockUserData, ...JSON.parse(savedStats) };
-                } catch (e) {
-                    console.error('Error loading stats:', e);
-                }
+            // ── 1. DAY STREAK ──────────────────────────────────────────────
+            const today = new Date().toDateString();
+            const streakData = safeJsonParse(localStorage.getItem('constitutionlearn_streak'), {streak:0, lastLogin:''});
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+            if (streakData.lastLogin === today) {
+                // Already logged in today — keep streak
+            } else if (streakData.lastLogin === yesterday) {
+                // Consecutive day — increment streak
+                streakData.streak = (streakData.streak || 0) + 1;
+                streakData.lastLogin = today;
+            } else {
+                // First login or missed a day — reset to 1
+                streakData.streak = 1;
+                streakData.lastLogin = today;
             }
+            localStorage.setItem('constitutionlearn_streak', JSON.stringify(streakData));
 
-            // Update dashboard stats
-            userStreak.textContent = stats.streak;
-            userPoints.textContent = stats.points.toLocaleString();
-            userLevel.textContent = `Level ${stats.level}`;
+            // ── 2. TOTAL POINTS ────────────────────────────────────────────
+            const quizResults = safeJsonParse(localStorage.getItem('quiz_results'), []);
+            let quizPoints = 0;
+            quizResults.forEach(function(r) {
+                // 10 pts base per quiz + up to 40 bonus based on score
+                quizPoints += 10 + Math.round((r.scorePercentage || 0) * 0.4);
+            });
 
-            // Save updated stats
+            const learningProgress = safeJsonParse(localStorage.getItem('learning_progress'), {});
+            const cardPoints = (learningProgress.cardsCompleted || 0) * 5;
+
+            const browserProgress = safeJsonParse(localStorage.getItem('constitution_browser_progress'), {});
+            const articleIds = Array.isArray(browserProgress.viewedArticleIds) ? browserProgress.viewedArticleIds : [];
+            const readPoints = articleIds.length * 2;
+
+            const totalPoints = quizPoints + cardPoints + readPoints;
+
+            // ── 3. LEVEL (every 300 pts = 1 level, min level 1) ───────────
+            const level = Math.max(1, Math.floor(totalPoints / 300) + 1);
+
+            // ── 4. UPDATE UI ───────────────────────────────────────────────
+            userStreak.textContent = streakData.streak;
+            userPoints.textContent = totalPoints.toLocaleString();
+            userLevel.textContent = 'Level ' + level;
+
+            const stats = Object.assign({}, mockUserData, {
+                streak: streakData.streak,
+                points: totalPoints,
+                level: level
+            });
+
+            updateProgressOverview(stats);
             localStorage.setItem('constitutionlearn_stats', JSON.stringify(stats));
+            return stats;
+        }
+
+        function safeJsonParse(value, fallback) {
+            try {
+                return value ? JSON.parse(value) : fallback;
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function computeDynamicAchievements({ quizAttempts, avgScore, masteredArticles, articlesRead }) {
+            const rules = [
+                { key: 'first_quiz', check: quizAttempts >= 1 },
+                { key: 'quiz_explorer', check: quizAttempts >= 5 },
+                { key: 'quiz_ace', check: quizAttempts >= 3 && avgScore >= 80 },
+                { key: 'learning_starter', check: masteredArticles >= 5 },
+                { key: 'learning_dedicated', check: masteredArticles >= 25 },
+                { key: 'reader_starter', check: articlesRead >= 10 },
+                { key: 'reader_scholar', check: articlesRead >= 50 },
+                { key: 'all_rounder', check: quizAttempts >= 3 && masteredArticles >= 10 && articlesRead >= 20 }
+            ];
+
+            const earned = rules.filter(rule => rule.check).map(rule => rule.key);
+            localStorage.setItem('constitutionlearn_achievements', JSON.stringify(earned));
+            return { earnedCount: earned.length, total: rules.length };
+        }
+
+        function updateProgressOverview(stats) {
+            // Progress Overview section removed from UI — only compute achievements for badge tracking.
+            const quizResults = safeJsonParse(localStorage.getItem('quiz_results'), []);
+            const learningProgress = safeJsonParse(localStorage.getItem('learning_progress'), {});
+            const browserProgress = safeJsonParse(localStorage.getItem('constitution_browser_progress'), {});
+
+            const masteredArticles = Array.isArray(learningProgress.masteredCardIds)
+                ? learningProgress.masteredCardIds.length
+                : Number(learningProgress.cardsCompleted ?? 0);
+
+            const quizAttempts = quizResults.length;
+            const avgScore = quizAttempts > 0
+                ? Math.round(quizResults.reduce((sum, item) => sum + Number(item.scorePercentage || 0), 0) / quizAttempts)
+                : 0;
+
+            const articlesRead = Array.isArray(browserProgress.viewedArticleIds)
+                ? browserProgress.viewedArticleIds.length
+                : 0;
+
+            // Keep computing achievements so badge data stays up-to-date in localStorage.
+            computeDynamicAchievements({ quizAttempts, avgScore, masteredArticles, articlesRead });
         }
 
         function initializeEventListeners() {
@@ -641,25 +579,9 @@
                 window.location.href = 'learning_module.html';
             });
 
-            askAiBtn.addEventListener('click', function() {
-                window.location.href = 'chatbot.html';
+            browseConstitutionBtn.addEventListener('click', function() {
+                window.location.href = 'constitution.html';
             });
-        }
-
-        // Simulate real-time updates
-        function simulateRealTimeUpdates() {
-            // Update last activity timestamp every minute
-            setInterval(function() {
-                const activityItems = document.querySelectorAll('.text-xs.text-text-tertiary');
-                activityItems.forEach(item => {
-                    if (item.textContent.includes('hours ago')) {
-                        const hours = parseInt(item.textContent.match(/\d+/)[0]);
-                        if (hours < 23) {
-                            item.textContent = `${hours + 1} hours ago`;
-                        }
-                    }
-                });
-            }, 60000); // Update every minute
         }
 
         // Add smooth animations to cards
@@ -680,8 +602,14 @@
         // Initialize dashboard when page loads
         window.addEventListener('load', function() {
             initializeDashboard();
-            simulateRealTimeUpdates();
             addCardAnimations();
+        });
+
+        // Keep dashboard in sync if another tab/page updates localStorage activity.
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'quiz_results' || e.key === 'learning_progress' || e.key === 'constitution_browser_progress' || e.key === 'constitutionlearn_stats') {
+                loadUserStats();
+            }
         });
 
         // Handle page visibility changes

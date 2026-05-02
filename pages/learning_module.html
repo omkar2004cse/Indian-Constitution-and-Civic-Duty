@@ -225,7 +225,7 @@
                     <div class="mb-2">
                         <div class="flex justify-between text-sm text-text-secondary mb-1">
                             <span>Cards Mastered</span>
-                            <span id="overall-progress-text">68/120</span>
+                            <span id="overall-progress-text">0/0</span>
                         </div>
                         <div class="w-full bg-border-light rounded-full h-2">
                             <div id="overall-progress-bar" class="bg-primary-600 h-2 rounded-full transition-all duration-300 progress-bar-width"></div>
@@ -269,45 +269,7 @@
                 </div>
             </div>
         </section>
-<!-- Learning Video Section -->
-        <!-- Constitution Learning Videos -->
-        <section class="mb-8">
-            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
 
-                <h2 class="text-xl font-semibold text-text-primary mb-6">
-                    Constitution Learning Videos
-                </h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <!-- Video 1 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/sDstf8ockUo"
-                        title="Constitution Video 1" allowfullscreen></iframe>
-
-                    <!-- Video 2 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/yKmQOnRSbpc"
-                        title="Constitution Video 2" allowfullscreen></iframe>
-
-                    <!-- Video 3 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/pr1OKiQHeJo"
-                        title="Constitution Video 3" allowfullscreen></iframe>
-
-                    <!-- Video 4 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/Z5nQ4xea9ts"
-                        title="Constitution Video 4" allowfullscreen></iframe>
-
-                    <!-- Video 5 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/0JEyG1V_OL8"
-                        title="Constitution Video 5" allowfullscreen></iframe>
-                    <!-- Video 6 -->
-                    <iframe class="w-full h-64 rounded-lg" src="https://youtu.be/Y3aCoOo-yMA?si=S_HEelsKV6-1V5qA"
-                        title="Constitution Video 6" allowfullscreen></iframe>
-
-
-                </div>
-
-            </div>
-        </section>
         <!-- Flashcard Interface -->
         <section class="mb-8">
             <div class="bg-white rounded-2xl shadow-lg border border-border-light overflow-hidden">
@@ -440,13 +402,96 @@
             <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-semibold text-text-primary">Personal Notes</h3>
-                    <button id="save-note" class="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors duration-200">
+                    <button id="save-note" style="background-color:#2563EB; color:#fff; padding:8px 16px; border-radius:8px; font-size:0.875rem; font-weight:600; border:none; cursor:pointer; transition:background-color 0.2s;" onmouseover="this.style.backgroundColor='#1D4ED8'" onmouseout="this.style.backgroundColor='#2563EB'">
                         Save Note
                     </button>
                 </div>
-                <textarea id="note-textarea" placeholder="Add your personal notes about this card..." class="w-full h-24 p-4 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 text-text-primary placeholder-text-tertiary resize-none"></textarea>
+                <textarea id="note-textarea" placeholder="Add your personal notes about this card..." class="w-full h-24 p-4 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 text-text-primary placeholder-text-tertiary resize-none" style="width:100%; box-sizing:border-box;"></textarea>
+
+                <!-- Saved Notes List -->
+                <div id="saved-notes-list" class="mt-6 space-y-3"></div>
             </div>
         </section>
+
+        <script>
+        (function() {
+            const NOTES_KEY = 'constitutionlearn_personal_notes';
+
+            function loadNotes() {
+                try { return JSON.parse(localStorage.getItem(NOTES_KEY)) || []; }
+                catch(e) { return []; }
+            }
+
+            function saveNotes(notes) {
+                localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+            }
+
+            function renderNotes() {
+                const notes = loadNotes();
+                const container = document.getElementById('saved-notes-list');
+                if (!container) return;
+
+                if (notes.length === 0) {
+                    container.innerHTML = '<p style="color:#9CA3AF; font-size:0.875rem; text-align:center; padding:16px 0;">No notes saved yet. Write something above and click Save Note!</p>';
+                    return;
+                }
+
+                container.innerHTML = notes.map((note, idx) => `
+                    <div style="background:#F9FAFB; border:1px solid #E5E7EB; border-radius:12px; padding:16px; position:relative;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+                            <p style="margin:0; color:#1F2937; font-size:0.9rem; line-height:1.6; white-space:pre-wrap; flex:1;">${escapeHtml(note.text)}</p>
+                            <button onclick="deleteNote(${idx})" title="Delete note" style="background:none; border:none; cursor:pointer; color:#9CA3AF; padding:4px; flex-shrink:0;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#9CA3AF'">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </div>
+                        <p style="margin:8px 0 0; color:#9CA3AF; font-size:0.75rem;">${note.date}</p>
+                    </div>
+                `).join('');
+            }
+
+            function escapeHtml(text) {
+                return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+            }
+
+            window.deleteNote = function(idx) {
+                const notes = loadNotes();
+                notes.splice(idx, 1);
+                saveNotes(notes);
+                renderNotes();
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                renderNotes();
+
+                const saveBtn = document.getElementById('save-note');
+                const textarea = document.getElementById('note-textarea');
+
+                if (saveBtn && textarea) {
+                    saveBtn.addEventListener('click', function() {
+                        const text = textarea.value.trim();
+                        if (!text) {
+                            textarea.style.borderColor = '#EF4444';
+                            textarea.placeholder = 'Please write something before saving...';
+                            setTimeout(() => {
+                                textarea.style.borderColor = '';
+                                textarea.placeholder = 'Add your personal notes about this card...';
+                            }, 2000);
+                            return;
+                        }
+                        const notes = loadNotes();
+                        const now = new Date();
+                        notes.unshift({
+                            text: text,
+                            date: now.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })
+                        });
+                        saveNotes(notes);
+                        textarea.value = '';
+                        renderNotes();
+                    });
+                }
+            });
+        })();
+        </script>
 
         <!-- Quick Actions -->
         <section class="mb-8">
@@ -479,16 +524,16 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-text-primary">AI Analysis</h3>
-                            <p class="text-sm text-text-secondary">Get detailed explanations and insights</p>
+                            <h3 class="text-lg font-semibold text-text-primary">Open Constitution Browser</h3>
+                            <p class="text-sm text-text-secondary">Read full constitutional articles while studying</p>
                         </div>
                     </div>
-                    <button class="inline-flex items-center px-4 py-2 bg-accent-600 text-white rounded-lg text-sm font-medium hover:bg-accent-700 transition-colors duration-200">
-                        Ask AI
+                    <a href="constitution.html" class="inline-flex items-center px-4 py-2 bg-accent-600 text-white rounded-lg text-sm font-medium hover:bg-accent-700 transition-colors duration-200">
+                        Open Browser
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -629,6 +674,7 @@
         let userProgress = JSON.parse(localStorage.getItem('learning_progress')) || {
             cardsCompleted: 0,
             totalCards: flashcardData.all.length,
+            masteredCardIds: [],
             categoryProgress: {},
             studyStreak: 7,
             dailyGoal: 15,
@@ -636,6 +682,22 @@
             totalPoints: 1250,
             notes: {}
         };
+
+        function normalizeUserProgress() {
+            if (!Array.isArray(userProgress.masteredCardIds)) {
+                userProgress.masteredCardIds = [];
+            }
+
+            if (typeof userProgress.totalCards !== 'number' || userProgress.totalCards < 0) {
+                userProgress.totalCards = 0;
+            }
+
+            // Keep backward compatibility with older saved structure.
+            userProgress.cardsCompleted = Math.max(
+                Number(userProgress.cardsCompleted || 0),
+                userProgress.masteredCardIds.length
+            );
+        }
 
         // DOM elements
         const flashcard = document.getElementById('flashcard');
@@ -656,10 +718,49 @@
 
         // Initialize the learning module
         function initLearningModule() {
+            normalizeUserProgress();
             updateProgressDisplay();
             loadCurrentCard();
             loadNote();
             updateNavigationButtons();
+        }
+
+        function markCurrentCardAsMastered() {
+            const card = currentDeck[currentCardIndex];
+            if (!card) return;
+
+            const cardId = String(card.id);
+            if (userProgress.masteredCardIds.includes(cardId)) {
+                return;
+            }
+
+            userProgress.masteredCardIds.push(cardId);
+            userProgress.cardsCompleted = userProgress.masteredCardIds.length;
+            userProgress.totalPoints += 10;
+            userProgress.dailyCompleted = (userProgress.dailyCompleted || 0) + 1;
+            saveProgress();
+            updateProgressDisplay();
+            checkAchievements();
+        }
+
+        // Save progress to localStorage so the dashboard reads it
+        function saveProgress() {
+            userProgress.cardsCompleted = Array.isArray(userProgress.masteredCardIds)
+                ? userProgress.masteredCardIds.length
+                : Number(userProgress.cardsCompleted || 0);
+            // Always persist the full dataset size, not just the current filtered deck
+            userProgress.totalCards = (flashcardData.all.length > 0)
+                ? flashcardData.all.length
+                : (userProgress.totalCards || 0);
+            localStorage.setItem('learning_progress', JSON.stringify(userProgress));
+            // Notify dashboard in the same tab via a custom event
+            try {
+                window.dispatchEvent(new StorageEvent('storage', {
+                    key: 'learning_progress',
+                    newValue: localStorage.getItem('learning_progress'),
+                    storageArea: localStorage
+                }));
+            } catch(e) {}
         }
 
         // Update progress display
@@ -668,9 +769,16 @@
             const overallProgressBar = document.getElementById('overall-progress-bar');
             const totalPointsEl = document.getElementById('total-points');
 
-            const progressPercentage = Math.round((userProgress.cardsCompleted / userProgress.totalCards) * 100);
+            const masteredCount = Array.isArray(userProgress.masteredCardIds)
+                ? userProgress.masteredCardIds.length
+                : Number(userProgress.cardsCompleted || 0);
+
+            const safeTotalCards = Math.max(1, Number(userProgress.totalCards || 0));
+            userProgress.cardsCompleted = masteredCount;
+
+            const progressPercentage = Math.round((masteredCount / safeTotalCards) * 100);
             
-            overallProgressText.textContent = `${userProgress.cardsCompleted}/${userProgress.totalCards}`;
+            overallProgressText.textContent = `${masteredCount}/${safeTotalCards}`;
             overallProgressBar.style.width = `${progressPercentage}%`;
             totalPointsEl.textContent = `${userProgress.totalPoints.toLocaleString()} pts`;
 
@@ -710,6 +818,7 @@
             isFlipped = !isFlipped;
             if (isFlipped) {
                 flashcard.style.transform = 'rotateY(180deg)';
+                markCurrentCardAsMastered();
             } else {
                 flashcard.style.transform = 'rotateY(0deg)';
             }
@@ -722,16 +831,6 @@
                 loadCurrentCard();
                 updateProgressDisplay();
                 updateNavigationButtons();
-                
-                // Award points for completing a card
-                if (isFlipped) {
-                    userProgress.totalPoints += 10;
-                    userProgress.cardsCompleted++;
-                    saveProgress();
-                    
-                    // Check for achievements
-                    checkAchievements();
-                }
             }
         }
 
@@ -1161,7 +1260,45 @@
             }, 1000);
         });
     </script>
+<!-- Learning Video Section -->
+        <!-- Constitution Learning Videos -->
+        <section class="mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-border-light">
 
+                <h2 class="text-xl font-semibold text-text-primary mb-6">
+                    Constitution Learning Videos
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Video 1 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/sDstf8ockUo"
+                        title="Constitution Video 1" allowfullscreen></iframe>
+
+                    <!-- Video 2 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/yKmQOnRSbpc"
+                        title="Constitution Video 2" allowfullscreen></iframe>
+
+                    <!-- Video 3 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/pr1OKiQHeJo"
+                        title="Constitution Video 3" allowfullscreen></iframe>
+
+                    <!-- Video 4 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/Z5nQ4xea9ts"
+                        title="Constitution Video 4" allowfullscreen></iframe>
+
+                    <!-- Video 5 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://www.youtube.com/embed/0JEyG1V_OL8"
+                        title="Constitution Video 5" allowfullscreen></iframe>
+                    <!-- Video 6 -->
+                    <iframe class="w-full h-64 rounded-lg" src="https://youtu.be/Y3aCoOo-yMA?si=S_HEelsKV6-1V5qA"
+                        title="Constitution Video 6" allowfullscreen></iframe>
+
+
+                </div>
+
+            </div>
+        </section>
     <style>
         .flashcard {
             perspective: 1000px;

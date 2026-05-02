@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games - ConstitutionLearn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0f172a;
+            --muted: #475569;
+            --surface: #ffffff;
+            --surface-soft: #f8fafc;
+            --accent: #10b981;
+            --accent-strong: #059669;
+            --accent-warm: #f97316;
+            --ring: #e2e8f0;
+            --shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Source Sans 3", system-ui, sans-serif;
+            color: var(--ink);
+            background: radial-gradient(1200px 700px at 20% -20%, #e0f2fe 0%, transparent 55%),
+                        radial-gradient(900px 600px at 110% 10%, #fef9c3 0%, transparent 50%),
+                        #f8fafc;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fde68a, #fb923c);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: #7c2d12;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 22px;
+            letter-spacing: -0.3px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--ink);
+            border: 1px solid var(--ring);
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-weight: 600;
+            background: #ffffffcc;
+        }
+
+        .hero {
+            margin-top: 28px;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            animation: floatIn 400ms ease-out;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -60px;
+            top: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, #dbeafe 0%, transparent 60%);
+        }
+
+        .hero h2 {
+            margin: 0 0 8px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 30px;
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 16px;
+            max-width: 640px;
+        }
+
+        .games-grid {
+            margin-top: 26px;
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .game-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 22px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .game-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .pill {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #ecfeff;
+            color: #0e7490;
+            font-weight: 600;
+        }
+
+        .game-note {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .match-column {
+            display: grid;
+            gap: 10px;
+        }
+
+        .match-item {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+        }
+
+        .match-item:hover {
+            transform: translateY(-1px);
+            border-color: #94a3b8;
+        }
+
+        .match-item.selected {
+            border-color: var(--accent);
+            background: #ecfdf5;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+
+        .match-item.matched {
+            background: #dcfce7;
+            border-color: #22c55e;
+            cursor: default;
+        }
+
+        .match-item.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .game-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-strong);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .score {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .message {
+            font-size: 14px;
+            font-weight: 600;
+            color: #16a34a;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .tile {
+            border: 1px solid #e2e8f0;
+            padding: 16px 10px;
+            border-radius: 14px;
+            background: #f8fafc;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            min-height: 56px;
+            transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+        }
+
+        .tile:hover {
+            transform: translateY(-1px);
+            border-color: #94a3b8;
+        }
+
+        .tile.selected {
+            background: #fff7ed;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+        }
+
+        .tile.solved {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .puzzle-target {
+            font-size: 12px;
+            color: var(--muted);
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 8px 12px;
+            border: 1px dashed #e2e8f0;
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 720px) {
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="topbar">
+            <div class="brand">
+                <div class="logo">CL</div>
+                <h1>ConstitutionLearn</h1>
+            </div>
+            <a class="back-link" href="dashboard.html">Back to Dashboard</a>
+        </div>
+
+        <section class="hero">
+            <h2>Mini Games Mode</h2>
+            <p>Practice civic concepts with quick, interactive challenges. Earn confidence by matching articles, rights, and key ideas through short, focused games.</p>
+        </section>
+
+        <section class="games-grid">
+            <div class="game-card" id="match-game">
+                <div>
+                    <div class="game-title">Match the Pair Game <span class="pill">Article Match</span></div>
+                    <p class="game-note">Tap a prompt on the left, then its correct match on the right.</p>
+                </div>
+                <div class="match-grid">
+                    <div class="match-column" id="match-prompts"></div>
+                    <div class="match-column" id="match-answers"></div>
+                </div>
+                <div class="game-actions">
+                    <div class="score">Matches: <span id="match-count">0</span> / <span id="match-total">0</span></div>
+                    <button class="btn btn-primary" id="match-reset">Reset</button>
+                </div>
+                <div class="message" id="match-message"></div>
+            </div>
+
+            <div class="game-card" id="puzzle-game">
+                <div>
+                    <div class="game-title">Constitution Puzzle Game <span class="pill">Order Challenge</span></div>
+                    <p class="game-note">Swap tiles until they match the target order.</p>
+                </div>
+                <div class="puzzle-target" id="puzzle-target"></div>
+                <div class="puzzle-grid" id="puzzle-grid"></div>
+                <div class="game-actions">
+                    <div class="score">Moves: <span id="puzzle-moves">0</span></div>
+                    <button class="btn btn-secondary" id="puzzle-shuffle">Shuffle</button>
+                </div>
+                <div class="message" id="puzzle-message"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const pairs = [
+            { id: 1, prompt: "Article 14", answer: "Right to Equality" },
+            { id: 2, prompt: "Article 19", answer: "Freedom of Speech" },
+            { id: 3, prompt: "Article 21", answer: "Right to Life" },
+            { id: 4, prompt: "Article 51A", answer: "Fundamental Duties" },
+            { id: 5, prompt: "Article 32", answer: "Constitutional Remedies" }
+        ];
+
+        const promptContainer = document.getElementById("match-prompts");
+        const answerContainer = document.getElementById("match-answers");
+        const matchCount = document.getElementById("match-count");
+        const matchTotal = document.getElementById("match-total");
+        const matchMessage = document.getElementById("match-message");
+        const matchReset = document.getElementById("match-reset");
+
+        let selectedPrompt = null;
+        let selectedAnswer = null;
+        let matchedPairs = 0;
+
+        function shuffle(array) {
+            const copy = [...array];
+            for (let i = copy.length - 1; i > 0; i -= 1) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function renderMatchGame() {
+            promptContainer.innerHTML = "";
+            answerContainer.innerHTML = "";
+            matchMessage.textContent = "";
+            matchedPairs = 0;
+            matchCount.textContent = "0";
+            matchTotal.textContent = String(pairs.length);
+            selectedPrompt = null;
+            selectedAnswer = null;
+
+            const prompts = shuffle(pairs);
+            const answers = shuffle(pairs);
+
+            prompts.forEach((pair) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "match-item";
+                btn.dataset.id = String(pair.id);
+                btn.textContent = pair.prompt;
+                btn.addEventListener("click", () => onSelectPrompt(btn));
+                promptContainer.appendChild(btn);
+            });
+
+            answers.forEach((pair) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "match-item";
+                btn.dataset.id = String(pair.id);
+                btn.textContent = pair.answer;
+                btn.addEventListener("click", () => onSelectAnswer(btn));
+                answerContainer.appendChild(btn);
+            });
+        }
+
+        function onSelectPrompt(btn) {
+            if (btn.classList.contains("matched")) return;
+            if (selectedPrompt) selectedPrompt.classList.remove("selected");
+            selectedPrompt = btn;
+            btn.classList.add("selected");
+            attemptMatch();
+        }
+
+        function onSelectAnswer(btn) {
+            if (btn.classList.contains("matched")) return;
+            if (selectedAnswer) selectedAnswer.classList.remove("selected");
+            selectedAnswer = btn;
+            btn.classList.add("selected");
+            attemptMatch();
+        }
+
+        function attemptMatch() {
+            if (!selectedPrompt || !selectedAnswer) return;
+            const isMatch = selectedPrompt.dataset.id === selectedAnswer.dataset.id;
+
+            if (isMatch) {
+                selectedPrompt.classList.add("matched");
+                selectedAnswer.classList.add("matched");
+                matchedPairs += 1;
+                matchCount.textContent = String(matchedPairs);
+                if (matchedPairs === pairs.length) {
+                    matchMessage.textContent = "Great job! You matched every pair.";
+                }
+            } else {
+                selectedPrompt.classList.add("wrong");
+                selectedAnswer.classList.add("wrong");
+                setTimeout(() => {
+                    selectedPrompt.classList.remove("wrong");
+                    selectedAnswer.classList.remove("wrong");
+                }, 500);
+            }
+
+            selectedPrompt.classList.remove("selected");
+            selectedAnswer.classList.remove("selected");
+            selectedPrompt = null;
+            selectedAnswer = null;
+        }
+
+        matchReset.addEventListener("click", renderMatchGame);
+
+        const puzzleTarget = [
+            "Preamble",
+            "Justice",
+            "Liberty",
+            "Equality",
+            "Fraternity",
+            "Fundamental Rights",
+            "Directive Principles",
+            "Fundamental Duties",
+            "Constitutional Remedies"
+        ];
+
+        const puzzleGrid = document.getElementById("puzzle-grid");
+        const puzzleMoves = document.getElementById("puzzle-moves");
+        const puzzleMessage = document.getElementById("puzzle-message");
+        const puzzleShuffle = document.getElementById("puzzle-shuffle");
+        const puzzleTargetLabel = document.getElementById("puzzle-target");
+
+        let tiles = [];
+        let selectedTileIndex = null;
+        let moves = 0;
+
+        function renderPuzzle() {
+            puzzleGrid.innerHTML = "";
+            puzzleMessage.textContent = "";
+            puzzleMoves.textContent = String(moves);
+            tiles.forEach((label, index) => {
+                const tile = document.createElement("button");
+                tile.type = "button";
+                tile.className = "tile";
+                tile.textContent = label;
+                if (label === puzzleTarget[index]) {
+                    tile.classList.add("solved");
+                }
+                if (selectedTileIndex === index) {
+                    tile.classList.add("selected");
+                }
+                tile.addEventListener("click", () => onTileClick(index));
+                puzzleGrid.appendChild(tile);
+            });
+        }
+
+        function onTileClick(index) {
+            if (selectedTileIndex === null) {
+                selectedTileIndex = index;
+                renderPuzzle();
+                return;
+            }
+
+            if (selectedTileIndex === index) {
+                selectedTileIndex = null;
+                renderPuzzle();
+                return;
+            }
+
+            const temp = tiles[selectedTileIndex];
+            tiles[selectedTileIndex] = tiles[index];
+            tiles[index] = temp;
+            selectedTileIndex = null;
+            moves += 1;
+
+            if (isPuzzleSolved()) {
+                puzzleMessage.textContent = "Puzzle complete! Nice work.";
+            }
+            renderPuzzle();
+        }
+
+        function isPuzzleSolved() {
+            return tiles.every((tile, index) => tile === puzzleTarget[index]);
+        }
+
+        function shufflePuzzle() {
+            tiles = shuffle(puzzleTarget);
+            moves = 0;
+            selectedTileIndex = null;
+            puzzleMessage.textContent = "";
+            renderPuzzle();
+        }
+
+        puzzleShuffle.addEventListener("click", shufflePuzzle);
+
+        puzzleTargetLabel.textContent = "Target order: " + puzzleTarget.join(" | ");
+
+        renderMatchGame();
+        shufflePuzzle();
+    </script>
+</body>
+</html>
