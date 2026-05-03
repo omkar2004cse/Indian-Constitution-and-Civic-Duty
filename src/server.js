@@ -37,13 +37,14 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log('✓ Connected to MongoDB Atlas');
     console.log('✓ Database: piston');
     console.log('✓ Collection: quizresults');
-    app.listen(PORT, () => {
-      console.log(`✓ Server running on http://localhost:${PORT}`);
-      console.log(`✓ API endpoint: http://localhost:${PORT}/api/quiz-results`);
-    });
   })
   .catch(err => {
     console.error('✗ Failed to connect to MongoDB:', err.message);
-    app.listen(PORT, () => console.log(`⚠ Server running on http://localhost:${PORT} (DB not connected)`));
   });
 
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+}
+
+module.exports = app;
