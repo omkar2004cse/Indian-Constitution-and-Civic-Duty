@@ -21,8 +21,13 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Serve frontend static files (project root)
-app.use(express.static(path.join(__dirname, '..')));
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Explicitly serve index.html for the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
+});
 
 // Mount API routers
 app.use('/', quizResultsRouter);
@@ -41,4 +46,4 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     console.error('✗ Failed to connect to MongoDB:', err.message);
     app.listen(PORT, () => console.log(`⚠ Server running on http://localhost:${PORT} (DB not connected)`));
   });
-  
+
