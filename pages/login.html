@@ -170,15 +170,6 @@
                     </p>
                 </div>
 
-                <!-- Demo Credentials -->
-                <div class="mt-6 p-4 bg-accent-50 rounded-lg border border-accent-200" id="demo-credentials">
-                    <h3 class="text-sm font-semibold text-accent-700 mb-2">Demo Credentials:</h3>
-                    <div class="text-xs text-accent-600 space-y-1">
-                        <p><strong>Admin:</strong> admin@constitutionlearn.com / password123</p>
-                        <p><strong>Student:</strong> student@example.com / student123</p>
-                        <p><strong>Teacher:</strong> teacher@constitutionlearn.com / teacher123</p>
-                    </div>
-                </div>
 
                 <!-- Debug Info -->
                 <div id="debug-info" class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 hidden">
@@ -236,12 +227,7 @@
         let isNewUser = false;
 
         // Mock user credentials (expanded to include recently registered users)
-        const mockUsers = [
-            { email: 'admin@constitutionlearn.com', username: 'admin', password: 'password123', role: 'admin', fullName: 'Admin User' },
-            { email: 'student@example.com', username: 'student', password: 'student123', role: 'student', fullName: 'Student User' },
-            { email: 'teacher@constitutionlearn.com', username: 'teacher', password: 'teacher123', role: 'teacher', fullName: 'Teacher User' },
-            { email: 'user@test.com', username: 'testuser', password: 'test123', role: 'student', fullName: 'Test User' }
-        ];
+        const mockUsers = [];
 
         // Function to get recently registered users from localStorage
         function getRecentlyRegisteredUsers() {
@@ -631,10 +617,15 @@
                             logDebug('Cleaned up recently registered user from cache');
                         }
                         
-                        // Redirect to dashboard after a short delay
+                        // Redirect to dashboard or admin panel after a short delay
                         setTimeout(() => {
-                            logDebug('Redirecting to dashboard');
-                            window.location.href = 'dashboard.html';
+                            if (user.role === 'admin') {
+                                logDebug('Redirecting to admin panel');
+                                window.location.href = 'admin.html';
+                            } else {
+                                logDebug('Redirecting to dashboard');
+                                window.location.href = 'dashboard.html';
+                            }
                         }, 1000);
                         
                     } catch (e) {
@@ -734,37 +725,7 @@
             // Only show shortcuts for returning users (not new users)
             if (isNewUser) return;
             
-            // Ctrl + Shift + D for demo admin login
-            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
-                e.preventDefault();
-                emailInput.value = 'admin@constitutionlearn.com';
-                passwordInput.value = 'password123';
-                rememberMeCheckbox.checked = true;
-                emailInput.dispatchEvent(new Event('input'));
-                passwordInput.dispatchEvent(new Event('input'));
-                logDebug('Admin credentials auto-filled via keyboard shortcut');
-            }
-            
-            // Ctrl + Shift + S for demo student login
-            if (e.ctrlKey && e.shiftKey && e.key === 'S') {
-                e.preventDefault();
-                emailInput.value = 'student@example.com';
-                passwordInput.value = 'student123';
-                emailInput.dispatchEvent(new Event('input'));
-                passwordInput.dispatchEvent(new Event('input'));
-                logDebug('Student credentials auto-filled via keyboard shortcut');
-            }
-            
-            // Ctrl + Shift + T for demo teacher login
-            if (e.ctrlKey && e.shiftKey && e.key === 'T') {
-                e.preventDefault();
-                emailInput.value = 'teacher@constitutionlearn.com';
-                passwordInput.value = 'teacher123';
-                emailInput.dispatchEvent(new Event('input'));
-                passwordInput.dispatchEvent(new Event('input'));
-                logDebug('Teacher credentials auto-filled via keyboard shortcut');
-            }
-            
+
             // F10 to toggle debug mode
             if (e.key === 'F10') {
                 e.preventDefault();

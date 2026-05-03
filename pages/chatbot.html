@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanvidhan AI - Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .chat-bubble-bot { border-top-left-radius: 2px; }
+        .chat-bubble-user { border-top-right-radius: 2px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        
+        /* Markdown rendering styles */
+        .markdown-body p { margin-bottom: 0.75em; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 0.75em; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 0.75em; }
+        .markdown-body strong { font-weight: 600; color: inherit; }
+        .markdown-body li { margin-bottom: 0.25em; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-indigo-900 text-white p-4 shadow-lg flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="bg-orange-500 p-2 rounded-lg">
+                <i data-lucide="scale" class="text-white w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-xl tracking-tight">Sanvidhan AI</h1>
+                <p class="text-xs text-indigo-200">Constitutional & Civic Guide</p>
+            </div>
+        </div>
+        <button id="reset-btn" class="p-2 hover:bg-indigo-800 rounded-full transition-colors" title="Reset Conversation">
+            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+        </button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-hidden flex flex-col md:flex-row max-w-6xl mx-auto w-full bg-white shadow-xl">
+        
+        <!-- Sidebar for Desktop -->
+        <aside class="hidden md:flex flex-col w-72 border-r border-slate-200 bg-white p-4 overflow-y-auto shrink-0">
+            <h2 class="text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider">Quick Learning</h2>
+            <div class="space-y-2" id="desktop-links">
+                <!-- Links injected here -->
+            </div>
+
+            <!-- Removed Civic Toolkit Section -->
+
+            <div class="mt-auto pt-6 border-t border-slate-100">
+                <div class="bg-indigo-50 p-4 rounded-xl">
+                    <div class="flex items-center gap-2 text-indigo-700 font-bold mb-1">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span class="text-sm">Quick Fact</span>
+                    </div>
+                    <p id="fact-display" class="text-[11px] text-indigo-600 leading-relaxed italic">
+    <!-- Fact will appear here -->
+</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chat Interface -->
+        <section class="flex-1 flex flex-col min-w-0 shadow-inner relative">
+            
+            <!-- Messages Window -->
+            <div id="chat-window" class="flex-1 overflow-y-auto p-4 space-y-6 bg-slate-50/30">
+                <!-- Messages injected here -->
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loading-indicator" class="hidden px-4 py-2 absolute bottom-24 left-4 z-10">
+                <div class="flex gap-3 items-start animate-fade-in">
+                    <div class="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="bot" class="text-white w-4 h-4 animate-pulse"></i>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-md border border-slate-100 flex gap-1 items-center">
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 bg-white border-t border-slate-200 z-20">
+                <div class="max-w-4xl mx-auto flex flex-col gap-2">
+                    <div class="relative flex items-end gap-2 bg-slate-50 rounded-2xl border border-slate-300 shadow-sm focus-within:ring-4 focus-within:ring-indigo-500/10 focus-within:border-indigo-500 transition-all p-1">
+                        <textarea
+                            id="user-input"
+                            rows="1"
+                            placeholder="Ask a question about Constitution or duties..."
+                            class="w-full resize-none border-none bg-transparent py-4 px-5 text-sm focus:ring-0 max-h-32 min-h-[56px]"
+                        ></textarea>
+                        <button
+                            id="send-btn"
+                            class="p-4 rounded-xl flex items-center justify-center transition-all shrink-0 mb-[2px] mr-[2px] bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg active:scale-95"
+                        >
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const apiKey = "AIzaSyCQporxSZnKY6_PM2ZeFmmR3s19f9XUMmo"; 
+
+        const chatWindow = document.getElementById('chat-window');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const desktopLinks = document.getElementById('desktop-links');
+
+        let chatHistory = [];
+
+        const quickLinks = [
+            { label: "What is the Preamble?", query: "Explain the Preamble in simple terms." },
+            { label: "Fundamental Rights", query: "What are my Fundamental Rights?" },
+            { label: "Fundamental Duties", query: "List the 11 Fundamental Duties under Art 51A." }
+        ];
+
+        lucide.createIcons();
+
+        function createMessageElement(role, content, groundings = [], timestamp) {
+            const wrapper = document.createElement('div');
+            wrapper.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`;
+            
+            const isUser = role === 'user';
+            const bgClass = isUser ? 'bg-indigo-600 text-white chat-bubble-user shadow-indigo-200 shadow-lg' : 'bg-white text-slate-800 chat-bubble-bot border border-slate-200 shadow-md';
+            
+            let groundingHtml = '';
+            if (groundings.length > 0) {
+                groundingHtml = `
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <p class="text-[10px] uppercase font-black text-slate-400 mb-2 tracking-widest">Legal References</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${groundings.map(g => `<a href="${g.uri}" target="_blank" class="flex items-center gap-1 bg-slate-50 hover:bg-indigo-50 px-2 py-1 rounded-md text-[10px] text-indigo-600 border border-slate-200 transition-all font-medium"><i data-lucide="external-link" class="w-2.5 h-2.5"></i> ${g.title || 'Source'}</a>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Parse markdown safely, fallback to plain text if marked fails to load
+            let formattedContent = content;
+            if (isUser) {
+                formattedContent = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            } else {
+                try {
+                    formattedContent = (typeof marked !== 'undefined') ? marked.parse(content) : content.replace(/\n/g, '<br>');
+                } catch (e) {
+                    formattedContent = content.replace(/\n/g, '<br>');
+                }
+            }
+
+            wrapper.innerHTML = `
+                <div class="flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}">
+                    <div class="h-8 w-8 rounded-full ${isUser ? 'bg-indigo-600' : 'bg-orange-500'} flex items-center justify-center shrink-0 mt-1 shadow-md">
+                        <i data-lucide="${isUser ? 'user' : 'bot'}" class="text-white w-4 h-4"></i>
+                    </div>
+                    <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'}">
+                        <div class="p-4 rounded-2xl ${bgClass}">
+                            <div class="text-sm md:text-base markdown-body">${formattedContent}</div>
+                            ${groundingHtml}
+                        </div>
+                        <span class="text-[10px] text-slate-400 mt-1">${timestamp}</span>
+                    </div>
+                </div>
+            `;
+            
+            chatWindow.appendChild(wrapper);
+            lucide.createIcons();
+            chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: 'smooth' });
+        }
+
+        async function fetchAI(query, systemPrompt) {
+            const currentRequestHistory = [...chatHistory, { role: "user", parts: [{ text: query }] }];
+
+            const payload = {
+                contents: currentRequestHistory,
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            // Model fallback array - ensures it connects even if a specific model version is deprecated or unsupported
+            const modelsToTry = [
+                "gemini-2.5-flash-preview-09-2025",
+                "gemini-2.5-flash",
+                "gemini-2.0-flash",
+                "gemini-1.5-flash"
+            ];
+
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            let lastError = null;
+
+            for (const model of modelsToTry) {
+                for (let i = 0; i <= delays.length; i++) {
+                    try {
+                        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            let errMsg = `HTTP Error ${response.status}`;
+                            try {
+                                const errorData = await response.json();
+                                if (errorData.error && errorData.error.message) {
+                                    errMsg = errorData.error.message;
+                                }
+                            } catch(e) {}
+                            
+                            const err = new Error(errMsg);
+                            err.status = response.status;
+                            throw err;
+                        }
+                        
+                        const result = await response.json();
+                        
+                        if (!result.candidates || result.candidates.length === 0) {
+                            throw new Error("No response generated by AI (Possible safety filter limit).");
+                        }
+                        
+                        const text = result.candidates[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a text response.";
+                        return { text, groundings: [] };
+                    } catch (err) {
+                        lastError = err;
+                        
+                        // If model is explicitly not found (404), break retry loop immediately and try the next model
+                        if (err.status === 404) {
+                            break;
+                        }
+
+                        // Catch missing API key when running locally
+                        if ((err.status === 400 || err.status === 403) && apiKey === "") {
+                            throw new Error("API Key missing! If you downloaded this file, please insert your Gemini API Key in the script.");
+                        }
+                        
+                        // Do not retry for other client errors (like malformed 400s)
+                        if (err.status >= 400 && err.status < 500 && err.status !== 429) {
+                            throw err;
+                        }
+                        
+                        if (i < delays.length) {
+                            await new Promise(resolve => setTimeout(resolve, delays[i]));
+                        }
+                    }
+                }
+                
+                // If the error wasn't a 404, stop trying models (the issue is auth/payload, not a missing model name)
+                if (lastError && lastError.status !== 404) {
+                    break;
+                }
+            }
+            throw lastError;
+        }
+
+        async function handleSend(customQuery = null) {
+            const query = customQuery || userInput.value.trim();
+            if (!query) return;
+            userInput.value = '';
+            createMessageElement('user', query, [], new Date().toLocaleTimeString());
+            
+            loadingIndicator.classList.remove('hidden');
+            try {
+                const sys = `STRICT GUARDRAIL: You are "Sanvidhan AI", an expert exclusively focused on the Constitution of India and Indian Civic Duties.
+                - ONLY answer questions related to the Indian Constitution, its Articles, Preamble, Amendments, and Civic Responsibilities (Art 51A).
+                - If the user asks about ANY OTHER TOPIC, you MUST politely decline.
+                - Cite Articles where applicable. Use a respectful and patriotic tone.`;
+                
+                const { text, groundings } = await fetchAI(query, sys);
+                createMessageElement('bot', text, groundings, new Date().toLocaleTimeString());
+                
+                // Add successful exchanges to memory to maintain conversation context
+                chatHistory.push({ role: "user", parts: [{ text: query }] });
+                chatHistory.push({ role: "model", parts: [{ text: text }] });
+            } catch (err) {
+                console.error("Chat Error:", err);
+                createMessageElement('bot', `⚠️ Error: ${err.message || "Connection issue. Try again later."}`, [], new Date().toLocaleTimeString());
+            } finally {
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        quickLinks.forEach(link => {
+            const btn = document.createElement('button');
+            btn.className = "w-full text-left p-3 text-sm rounded-lg hover:bg-indigo-50 border border-transparent hover:border-indigo-100 transition-all text-slate-700 flex items-center gap-2 group";
+            btn.innerHTML = `<i data-lucide="book-open" class="w-4 h-4 text-indigo-400 group-hover:text-indigo-600"></i> ${link.label}`;
+            btn.onclick = () => handleSend(link.query);
+            desktopLinks.appendChild(btn);
+        });
+
+        sendBtn.onclick = () => handleSend();
+        
+        function initChat() {
+            chatWindow.innerHTML = ''; 
+            chatHistory = []; 
+            createMessageElement('bot', "Namaste! I am Sanvidhan AI. I am here specifically to assist you with the Indian Constitution and Civic Duties. What would you like to learn today?", [], new Date().toLocaleTimeString());
+            lucide.createIcons();
+        }
+
+        resetBtn.onclick = initChat;
+        userInput.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } };
+
+        window.on = initChat;
+
+
+
+
+        
+
+
+
+        // facts
+
+        
+    const facts = [
+        "The original Constitution was handwritten by Prem Behari Narain Raizada.",
+        "It is the longest written constitution of any sovereign country in the world.",
+        "The original copies are stored in special helium-filled cases in the Library of Parliament.",
+        "The Constitution was adopted on November 26, 1949, but came into effect on January 26, 1950.",
+        "The drafting committee took 2 years, 11 months, and 18 days to complete the final draft.",
+        "The Constitution of India originally had 395 Articles, 22 Parts, and 8 Schedules.",
+        "At present, it has 450+ Articles and 12 Schedules due to amendments.",
+        "The Constitution was inspired by several countries, including Britain, USA, Ireland, Canada, and Australia.",
+        "The idea of Fundamental Rights was borrowed from the Constitution of the United States.",
+        "The concept of Directive Principles of State Policy was taken from Ireland.",
+        "Dr. B. R. Ambedkar is known as the 'Father of the Indian Constitution'.",
+        "The Constitution was first amended in 1951.",
+        "The Preamble of the Constitution was amended only once, in 1976 by the 42nd Amendment.",
+        "The words 'Socialist', 'Secular', and 'Integrity' were added to the Preamble by this amendment.",
+        "The Constitution provides single citizenship for all Indians.",
+        "India follows a parliamentary system of government similar to that of the United Kingdom.",
+        "The Constitution establishes an independent judiciary headed by the Supreme Court.",
+        "The Fundamental Duties were added by the 42nd Amendment Act, 1976.",
+        "The Constitution allows both rigid and flexible amendment procedures.",
+        "India is described as a 'Union of States', not a federation formed by agreement.",
+        "The Constitution guarantees universal adult franchise, giving voting rights to all citizens above 18 years.",
+        "The original Constitution was written in both Hindi and English.",
+        "Each page of the original Constitution was decorated by artists from Shantiniketan.",
+        "The Constitution originally recognized 14 languages, which later increased to 22 languages in the Eighth Schedule.",
+        "The Supreme Court of India acts as the guardian of the Constitution.",
+    ];
+
+    // Function to pick a random fact
+    function displayRandomFact() {
+        const randomIndex = Math.floor(Math.random() * facts.length);
+        document.getElementById('fact-display').innerText = facts[randomIndex];
+    }
+
+    // Run the function when the page loads
+    window.onload = displayRandomFact;
+    </script>
+</body>
+</html>
